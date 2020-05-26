@@ -1,0 +1,7 @@
+﻿@{ Html.RenderAction("TimeLine", "travel", new { travelId = ViewBag.travelId });}
+<div class="row">
+    <div class="col text-right">
+        <button type="button" class= "btn btn-info mr-2 btn-sm secondary-button" onclick="location.href='@Url.Action("travellist", "travel")'">Back</button>
+    </div>
+</div>
+

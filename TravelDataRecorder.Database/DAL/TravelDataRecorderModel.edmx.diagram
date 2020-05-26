@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d8a1a8e54cb44cae883dcf06f692cf29" Name="Diagram1" ZoomLevel="95">
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelCity" Width="1.5" PointX="3" PointY="18.125" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelCountry" Width="1.5" PointX="1.5" PointY="21.375" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelDetail" Width="1.5" PointX="3" PointY="6.375" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelDetailTrail" Width="1.5" PointX="8.25" PointY="9" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelEmailException" Width="1.5" PointX="5.25" PointY="15.25" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelErrorLog" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelNotification" Width="1.5" PointX="3" PointY="14.625" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelPlaceDetail" Width="1.5" PointX="5.25" PointY="10.875" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelRole" Width="1.5" PointX="3.75" PointY="2.75" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelState" Width="1.5" PointX="0.75" PointY="18" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelStatusMaster" Width="1.5" PointX="6" PointY="5.375" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelUser" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="TravelDataRecoderModel.TravelUserRoleMapping" Width="1.5" PointX="6" PointY="7.75" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelCity_TravelState" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelCity" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelState_TravelCountry" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelDetail_ToTable" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelEmailException_ToTable" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelDetail" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable_1" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelNotification_TravelNotification" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelState" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable" />
+        <AssociationConnector Association="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,114 @@
+﻿@using TravelDataRecorder.Common.TravelDataEnum
+@using TravelDataRecorder.Common.TravelDataEnum.Helper
+@model IEnumerable<TravelDataRecorder.Model.TravelNotificationModel>
+
+@{
+    ViewBag.Title = "Notification List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header">
+    <h3 class="page-title"> Notification List</h3>
+    @*<h2>NotificationList</h2>*@
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Notification List</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.User)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Notification List</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Notification List</li>
+            }
+        </ol>
+
+    </nav>
+</div>
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="m-b-20 row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="search-box-new">
+                            @Html.TextBox("search", null, new { @class = "form-control", maxlength = 50, @placeholder = "Search" })
+                            <i style="display:none" id="fafatimes" class="mdi mdi-close"></i>
+                            <i id="faSearch" class="mdi mdi-magnify"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 sel-search text-right">
+
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table ManageUser" id="jqueryNotificationTable">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Message</th>
+                        <th>Date</th>
+                        <th class="text-center">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+
+</div>
+        </div>
+    </div>
+<script src="~/Scripts/managenotification.js"></script>
+<script>
+    $(document).ready(function () {
+        var totalcount = $('#totalcountid').html();
+        if (sessionStorage.status == "1,10") {
+            var newcount = $('#newtravelid').html();
+            $('#totalcountid').html(totalcount - newcount)
+            $('#newtravelid').html("0");
+          
+        }
+        
+        if (sessionStorage.status == "4") {
+            var approvecount = $('#approvedtravelid').html();
+            $('#totalcountid').html(totalcount - approvecount)
+            $('#approvedtravelid').html("0");
+        }
+        if (sessionStorage.status == "6,7") {
+            var rejecttravelid = $('#rejecttravelid').html();
+            $('#totalcountid').html(totalcount - rejecttravelid)
+            $('#rejecttravelid').html("0");
+        }
+        if (sessionStorage.status == "6,7,5") {
+            var rejecttotalcount = $('#rejecttraveluserid').html();
+            $('#totalcountid').html(totalcount - rejecttotalcount)
+            $('#rejecttraveluserid').html("0");
+        }
+        if (sessionStorage.status == "2") {
+            var newtotalcount = $('#newclientid').html();
+            $('#totalcountid').html(totalcount - newtotalcount)
+            $('#newclientid').html("0");
+        }
+    
+      if (sessionStorage.status == "5") {
+          var rejecttotalcount = $('#rejectclientid').html();
+          $('#totalcountid').html(totalcount - rejecttotalcount)
+          $('#rejectclientid').html("0");
+      }
+      
+      if (sessionStorage.status == "3,2") {
+          var approvecount = $('#approveclient2').html();
+          $('#totalcountid').html(totalcount - approvecount)
+          $('#approveclient2').html("0");
+      }
+    });
+</script>

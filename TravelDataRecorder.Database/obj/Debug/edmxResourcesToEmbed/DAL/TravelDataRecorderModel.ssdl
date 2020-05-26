@@ -1,0 +1,495 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TravelDataRecoderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="EmailException">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MailTo" Type="varchar" MaxLength="500" />
+    <Property Name="MailCC" Type="varchar" MaxLength="2000" />
+    <Property Name="MailSubject" Type="varchar" MaxLength="500" />
+    <Property Name="MailMessage" Type="varchar" MaxLength="5000" />
+    <Property Name="ErrorMessage" Type="varchar" MaxLength="1000" />
+    <Property Name="ErrorInnerException" Type="varchar" MaxLength="5000" />
+    <Property Name="ErrorInnerExceptionMessage" Type="varchar" MaxLength="5000" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ErrorInnerException" Type="varchar" MaxLength="500" />
+    <Property Name="ErrorMessage" Type="varchar" MaxLength="500" />
+    <Property Name="ErrorInnerExceptionMessage" Type="varchar" MaxLength="500" />
+    <Property Name="StackTrace" Type="varchar(max)" />
+    <Property Name="ErrorTimeStamp" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TravelCity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="StateId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TravelCountry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TravelDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Summary_ProjectName" Type="varchar" MaxLength="200" />
+    <Property Name="Summary_PrimeContractor" Type="varchar" MaxLength="50" />
+    <Property Name="Summary_ContractNumber" Type="varchar" MaxLength="30" />
+    <Property Name="Summary_TaskOrder" Type="varchar" MaxLength="50" />
+    <Property Name="Summary_CorName" Type="varchar" MaxLength="50" />
+    <Property Name="Summary_SubmittedDate" Type="datetime" />
+    <Property Name="Summary_TravelerName" Type="varchar" MaxLength="100" />
+    <Property Name="Detail_AirportDepartingFrom" Type="varchar" MaxLength="50" />
+    <Property Name="Detail_TravelingFromCity" Type="int" Nullable="false" />
+    <Property Name="Detail_TravelingFromState" Type="int" Nullable="false" />
+    <Property Name="Detail_TravelingToCity" Type="int" Nullable="false" />
+    <Property Name="Detail_TravelingToState" Type="int" Nullable="false" />
+    <Property Name="Detail_ReturningToCity" Type="int" Nullable="false" />
+    <Property Name="Detail_ReturningToState" Type="int" Nullable="false" />
+    <Property Name="Detail_DepartingDate" Type="datetime" />
+    <Property Name="Detail_ReturningDate" Type="datetime" />
+    <Property Name="Detail_TotalDays" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Detail_TravelPurpose" Type="varchar" MaxLength="300" />
+    <Property Name="Detail_TravelSitePOC" Type="varchar" MaxLength="100" />
+    <Property Name="Cost_CostOfAirFare" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_PerDiemRate" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_TotalPerDiem" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_RegistrationFee" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_RentalCar" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_Hotel" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_Miscellaneous" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_TotalExpense" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_ODCBudgetStatus" Type="varchar" MaxLength="50" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="LastStatus" Type="int" />
+    <Property Name="IsProcedural" Type="smallint" />
+  </EntityType>
+  <EntityType Name="TravelDetailTrail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TravelId" Type="int" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
+    <Property Name="ProcessedBy" Type="int" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="400" />
+    <Property Name="StepNotes" Type="int" />
+    <Property Name="NextActionRole" Type="int" />
+  </EntityType>
+  <EntityType Name="TravelEmailException">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="EmailTo" Type="varchar" MaxLength="200" />
+    <Property Name="EmailFrom" Type="varchar" MaxLength="200" />
+    <Property Name="TravelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Subject" Type="varchar" MaxLength="100" />
+    <Property Name="Body" Type="varchar(max)" />
+    <Property Name="status" Type="smallint" />
+  </EntityType>
+  <EntityType Name="TravelErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Error" Type="varchar" MaxLength="200" />
+    <Property Name="TravelId" Type="int" />
+    <Property Name="Comment" Type="varchar" MaxLength="500" />
+    <Property Name="type" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TravelNotification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+    <Property Name="Message" Type="varchar(max)" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="StepNotificationId" Type="int" />
+    <Property Name="NotificationDate" Type="datetime" />
+    <Property Name="TravelId" Type="int" />
+    <Property Name="ProcessedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="TravelPlaceDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TravelId" Type="int" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="StateId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TravelRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="smallint" Nullable="false" />
+    <Property Name="DisplayName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TravelState">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TravelStatusMaster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TravelUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ContactNumber" Type="bigint" />
+    <Property Name="IsActive" Type="smallint" />
+    <Property Name="ParentId" Type="int" />
+    <Property Name="Address" Type="varchar(max)" />
+    <Property Name="OTP" Type="varchar" MaxLength="10" />
+    <Property Name="GeneratePasswordKey" Type="uniqueidentifier" />
+    <Property Name="ProfileImage" Type="varchar" MaxLength="150" />
+    <Property Name="CreatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TravelUserRoleMapping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__TravelDet__Detai__6E01572D">
+    <End Role="TravelState" Type="Self.TravelState" Multiplicity="1" />
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingToState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelDet__Detai__6EF57B66">
+    <End Role="TravelState" Type="Self.TravelState" Multiplicity="1" />
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingFromState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelDet__Detai__6FE99F9F">
+    <End Role="TravelCity" Type="Self.TravelCity" Multiplicity="1" />
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingFromCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelDet__Detai__70DDC3D8">
+    <End Role="TravelCity" Type="Self.TravelCity" Multiplicity="1" />
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingToCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelCity_TravelState">
+    <End Role="TravelState" Type="Self.TravelState" Multiplicity="1" />
+    <End Role="TravelCity" Type="Self.TravelCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelCity">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelDetail_ToTable">
+    <End Role="TravelUser" Type="Self.TravelUser" Multiplicity="1" />
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelDetail_travelStatus">
+    <End Role="TravelStatusMaster" Type="Self.TravelStatusMaster" Multiplicity="0..1" />
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelStatusMaster">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="LastStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelDetailTrail_ToTable">
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="1" />
+    <End Role="TravelDetailTrail" Type="Self.TravelDetailTrail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetailTrail">
+        <PropertyRef Name="TravelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelDetailTrail_ToTable_1">
+    <End Role="TravelStatusMaster" Type="Self.TravelStatusMaster" Multiplicity="1" />
+    <End Role="TravelDetailTrail" Type="Self.TravelDetailTrail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelStatusMaster">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetailTrail">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelEmailException_ToTable">
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="1" />
+    <End Role="TravelEmailException" Type="Self.TravelEmailException" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelEmailException">
+        <PropertyRef Name="TravelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelNotification_TravelNotification">
+    <End Role="TravelUser" Type="Self.TravelUser" Multiplicity="1" />
+    <End Role="TravelNotification" Type="Self.TravelNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelNotification">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelNotification_traveluser">
+    <End Role="TravelUser" Type="Self.TravelUser" Multiplicity="0..1" />
+    <End Role="TravelNotification" Type="Self.TravelNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelNotification">
+        <PropertyRef Name="ProcessedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelPlaceDetail_TravelCity">
+    <End Role="TravelCity" Type="Self.TravelCity" Multiplicity="1" />
+    <End Role="TravelPlaceDetails" Type="Self.TravelPlaceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelPlaceDetails">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelPlaceDetail_TravelDetail">
+    <End Role="TravelDetail" Type="Self.TravelDetail" Multiplicity="1" />
+    <End Role="TravelPlaceDetails" Type="Self.TravelPlaceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelPlaceDetails">
+        <PropertyRef Name="TravelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelPlaceDetail_TravelState">
+    <End Role="TravelState" Type="Self.TravelState" Multiplicity="1" />
+    <End Role="TravelPlaceDetails" Type="Self.TravelPlaceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelPlaceDetails">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelState_TravelCountry">
+    <End Role="TravelCountry" Type="Self.TravelCountry" Multiplicity="1" />
+    <End Role="TravelState" Type="Self.TravelState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCountry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelState">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelUserRoleMapping_ToTable">
+    <End Role="TravelRole" Type="Self.TravelRole" Multiplicity="1" />
+    <End Role="TravelUserRoleMapping" Type="Self.TravelUserRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelUserRoleMapping">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelUserRoleMapping_ToTable1">
+    <End Role="TravelUser" Type="Self.TravelUser" Multiplicity="1" />
+    <End Role="TravelUserRoleMapping" Type="Self.TravelUserRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelUserRoleMapping">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TravelDataRecoderModelStoreContainer">
+    <EntitySet Name="EmailException" EntityType="Self.EmailException" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelCity" EntityType="Self.TravelCity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelCountry" EntityType="Self.TravelCountry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelDetail" EntityType="Self.TravelDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelDetailTrail" EntityType="Self.TravelDetailTrail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelEmailException" EntityType="Self.TravelEmailException" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelErrorLog" EntityType="Self.TravelErrorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelNotification" EntityType="Self.TravelNotification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelPlaceDetails" EntityType="Self.TravelPlaceDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelRole" EntityType="Self.TravelRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelState" EntityType="Self.TravelState" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelStatusMaster" EntityType="Self.TravelStatusMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelUser" EntityType="Self.TravelUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TravelUserRoleMapping" EntityType="Self.TravelUserRoleMapping" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__TravelDet__Detai__6E01572D" Association="Self.FK__TravelDet__Detai__6E01572D">
+      <End Role="TravelState" EntitySet="TravelState" />
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelDet__Detai__6EF57B66" Association="Self.FK__TravelDet__Detai__6EF57B66">
+      <End Role="TravelState" EntitySet="TravelState" />
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelDet__Detai__6FE99F9F" Association="Self.FK__TravelDet__Detai__6FE99F9F">
+      <End Role="TravelCity" EntitySet="TravelCity" />
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelDet__Detai__70DDC3D8" Association="Self.FK__TravelDet__Detai__70DDC3D8">
+      <End Role="TravelCity" EntitySet="TravelCity" />
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelCity_TravelState" Association="Self.FK_TravelCity_TravelState">
+      <End Role="TravelState" EntitySet="TravelState" />
+      <End Role="TravelCity" EntitySet="TravelCity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelDetail_ToTable" Association="Self.FK_TravelDetail_ToTable">
+      <End Role="TravelUser" EntitySet="TravelUser" />
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelDetail_travelStatus" Association="Self.FK_TravelDetail_travelStatus">
+      <End Role="TravelStatusMaster" EntitySet="TravelStatusMaster" />
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelDetailTrail_ToTable" Association="Self.FK_TravelDetailTrail_ToTable">
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+      <End Role="TravelDetailTrail" EntitySet="TravelDetailTrail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelDetailTrail_ToTable_1" Association="Self.FK_TravelDetailTrail_ToTable_1">
+      <End Role="TravelStatusMaster" EntitySet="TravelStatusMaster" />
+      <End Role="TravelDetailTrail" EntitySet="TravelDetailTrail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelEmailException_ToTable" Association="Self.FK_TravelEmailException_ToTable">
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+      <End Role="TravelEmailException" EntitySet="TravelEmailException" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelNotification_TravelNotification" Association="Self.FK_TravelNotification_TravelNotification">
+      <End Role="TravelUser" EntitySet="TravelUser" />
+      <End Role="TravelNotification" EntitySet="TravelNotification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelNotification_traveluser" Association="Self.FK_TravelNotification_traveluser">
+      <End Role="TravelUser" EntitySet="TravelUser" />
+      <End Role="TravelNotification" EntitySet="TravelNotification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelPlaceDetail_TravelCity" Association="Self.FK_TravelPlaceDetail_TravelCity">
+      <End Role="TravelCity" EntitySet="TravelCity" />
+      <End Role="TravelPlaceDetails" EntitySet="TravelPlaceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelPlaceDetail_TravelDetail" Association="Self.FK_TravelPlaceDetail_TravelDetail">
+      <End Role="TravelDetail" EntitySet="TravelDetail" />
+      <End Role="TravelPlaceDetails" EntitySet="TravelPlaceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelPlaceDetail_TravelState" Association="Self.FK_TravelPlaceDetail_TravelState">
+      <End Role="TravelState" EntitySet="TravelState" />
+      <End Role="TravelPlaceDetails" EntitySet="TravelPlaceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelState_TravelCountry" Association="Self.FK_TravelState_TravelCountry">
+      <End Role="TravelCountry" EntitySet="TravelCountry" />
+      <End Role="TravelState" EntitySet="TravelState" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelUserRoleMapping_ToTable" Association="Self.FK_TravelUserRoleMapping_ToTable">
+      <End Role="TravelRole" EntitySet="TravelRole" />
+      <End Role="TravelUserRoleMapping" EntitySet="TravelUserRoleMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelUserRoleMapping_ToTable1" Association="Self.FK_TravelUserRoleMapping_ToTable1">
+      <End Role="TravelUser" EntitySet="TravelUser" />
+      <End Role="TravelUserRoleMapping" EntitySet="TravelUserRoleMapping" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,5 @@
+@media (max-width: 767px){
+	.col-form-label{padding-top: 0; padding-bottom: 0;}
+	.card .card-body {padding: 15px;}	
+}
+

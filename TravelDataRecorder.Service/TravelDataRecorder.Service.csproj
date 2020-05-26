@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F160AA7-5C4D-4AA5-B6F7-476EBD852D2D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TravelDataRecorder.Service</RootNamespace>
+    <AssemblyName>TravelDataRecorder.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.0.4\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapperConfiguration.cs" />
+    <Compile Include="ITravelDataRecorderService\IAdminService.cs" />
+    <Compile Include="ITravelDataRecorderService\ICommonService.cs" />
+    <Compile Include="ITravelDataRecorderService\IDbErrorHandlingService.cs" />
+    <Compile Include="ITravelDataRecorderService\INotificationService.cs" />
+    <Compile Include="ITravelDataRecorderService\IProjectManagerService.cs" />
+    <Compile Include="ITravelDataRecorderService\ITravelCityService.cs" />
+    <Compile Include="ITravelDataRecorderService\ITravelStateService.cs" />
+    <Compile Include="ITravelDataRecorderService\ITravelService.cs" />
+    <Compile Include="ITravelDataRecorderService\IUserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TravelDataRecorderService\AdminService.cs" />
+    <Compile Include="TravelDataRecorderService\CommonService.cs" />
+    <Compile Include="TravelDataRecorderService\DbErrorHandlingService.cs" />
+    <Compile Include="TravelDataRecorderService\NotificationService.cs" />
+    <Compile Include="TravelDataRecorderService\ProjectManagerService.cs" />
+    <Compile Include="TravelDataRecorderService\TravelCityService.cs" />
+    <Compile Include="TravelDataRecorderService\TravelService.cs" />
+    <Compile Include="TravelDataRecorderService\TravelStateService.cs" />
+    <Compile Include="TravelDataRecorderService\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TravelDataRecorder.Database\TravelDataRecorder.Database.csproj">
+      <Project>{C104E7BB-3465-41A8-8E66-E8755C9082DB}</Project>
+      <Name>TravelDataRecorder.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TravelDataRecorder.Model\TravelDataRecorder.Model.csproj">
+      <Project>{7CC956A8-891C-454A-95F0-313E2E638782}</Project>
+      <Name>TravelDataRecorder.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

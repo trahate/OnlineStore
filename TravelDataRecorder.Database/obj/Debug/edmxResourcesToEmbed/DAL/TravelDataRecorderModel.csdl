@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TravelDataRecoderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TravelDataRecoderEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TravelCities" EntityType="TravelDataRecoderModel.TravelCity" />
+    <EntitySet Name="TravelCountries" EntityType="TravelDataRecoderModel.TravelCountry" />
+    <EntitySet Name="TravelEmailExceptions" EntityType="TravelDataRecoderModel.TravelEmailException" />
+    <EntitySet Name="TravelErrorLogs" EntityType="TravelDataRecoderModel.TravelErrorLog" />
+    <EntitySet Name="TravelPlaceDetails" EntityType="TravelDataRecoderModel.TravelPlaceDetail" />
+    <EntitySet Name="TravelRoles" EntityType="TravelDataRecoderModel.TravelRole" />
+    <EntitySet Name="TravelStates" EntityType="TravelDataRecoderModel.TravelState" />
+    <EntitySet Name="TravelStatusMasters" EntityType="TravelDataRecoderModel.TravelStatusMaster" />
+    <EntitySet Name="TravelUsers" EntityType="TravelDataRecoderModel.TravelUser" />
+    <EntitySet Name="TravelUserRoleMappings" EntityType="TravelDataRecoderModel.TravelUserRoleMapping" />
+    <AssociationSet Name="FK_TravelCity_TravelState" Association="TravelDataRecoderModel.FK_TravelCity_TravelState">
+      <End Role="TravelState" EntitySet="TravelStates" />
+      <End Role="TravelCity" EntitySet="TravelCities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelPlaceDetail_TravelCity" Association="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelCity">
+      <End Role="TravelCity" EntitySet="TravelCities" />
+      <End Role="TravelPlaceDetail" EntitySet="TravelPlaceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelState_TravelCountry" Association="TravelDataRecoderModel.FK_TravelState_TravelCountry">
+      <End Role="TravelCountry" EntitySet="TravelCountries" />
+      <End Role="TravelState" EntitySet="TravelStates" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelPlaceDetail_TravelState" Association="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelState">
+      <End Role="TravelState" EntitySet="TravelStates" />
+      <End Role="TravelPlaceDetail" EntitySet="TravelPlaceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelUserRoleMapping_ToTable" Association="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable">
+      <End Role="TravelRole" EntitySet="TravelRoles" />
+      <End Role="TravelUserRoleMapping" EntitySet="TravelUserRoleMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelUserRoleMapping_ToTable1" Association="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable1">
+      <End Role="TravelUser" EntitySet="TravelUsers" />
+      <End Role="TravelUserRoleMapping" EntitySet="TravelUserRoleMappings" />
+    </AssociationSet>
+    <EntitySet Name="TravelNotifications" EntityType="TravelDataRecoderModel.TravelNotification" />
+    <AssociationSet Name="FK_TravelNotification_TravelNotification" Association="TravelDataRecoderModel.FK_TravelNotification_TravelNotification">
+      <End Role="TravelUser" EntitySet="TravelUsers" />
+      <End Role="TravelNotification" EntitySet="TravelNotifications" />
+    </AssociationSet>
+    <EntitySet Name="TravelDetailTrails" EntityType="TravelDataRecoderModel.TravelDetailTrail" />
+    <AssociationSet Name="FK_TravelDetailTrail_ToTable_1" Association="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable_1">
+      <End Role="TravelStatusMaster" EntitySet="TravelStatusMasters" />
+      <End Role="TravelDetailTrail" EntitySet="TravelDetailTrails" />
+    </AssociationSet>
+    <EntitySet Name="TravelDetails" EntityType="TravelDataRecoderModel.TravelDetail" />
+    <AssociationSet Name="FK_TravelDetail_ToTable" Association="TravelDataRecoderModel.FK_TravelDetail_ToTable">
+      <End Role="TravelUser" EntitySet="TravelUsers" />
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelDetail_travelStatus" Association="TravelDataRecoderModel.FK_TravelDetail_travelStatus">
+      <End Role="TravelStatusMaster" EntitySet="TravelStatusMasters" />
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelDetailTrail_ToTable" Association="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable">
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+      <End Role="TravelDetailTrail" EntitySet="TravelDetailTrails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelEmailException_ToTable" Association="TravelDataRecoderModel.FK_TravelEmailException_ToTable">
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+      <End Role="TravelEmailException" EntitySet="TravelEmailExceptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelPlaceDetail_TravelDetail" Association="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelDetail">
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+      <End Role="TravelPlaceDetail" EntitySet="TravelPlaceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelDet__Detai__6FE99F9F" Association="TravelDataRecoderModel.FK__TravelDet__Detai__6FE99F9F">
+      <End Role="TravelCity" EntitySet="TravelCities" />
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelDet__Detai__70DDC3D8" Association="TravelDataRecoderModel.FK__TravelDet__Detai__70DDC3D8">
+      <End Role="TravelCity" EntitySet="TravelCities" />
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelDet__Detai__6E01572D" Association="TravelDataRecoderModel.FK__TravelDet__Detai__6E01572D">
+      <End Role="TravelState" EntitySet="TravelStates" />
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TravelDet__Detai__6EF57B66" Association="TravelDataRecoderModel.FK__TravelDet__Detai__6EF57B66">
+      <End Role="TravelState" EntitySet="TravelStates" />
+      <End Role="TravelDetail" EntitySet="TravelDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TravelNotification_traveluser" Association="TravelDataRecoderModel.FK_TravelNotification_traveluser">
+      <End Role="TravelUser" EntitySet="TravelUsers" />
+      <End Role="TravelNotification" EntitySet="TravelNotifications" />
+    </AssociationSet>
+    <EntitySet Name="EmailExceptions" EntityType="TravelDataRecoderModel.EmailException" />
+    <EntitySet Name="ErrorLogs" EntityType="TravelDataRecoderModel.ErrorLog" />
+  </EntityContainer>
+  <EntityType Name="TravelCity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="StateId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TravelState" Relationship="TravelDataRecoderModel.FK_TravelCity_TravelState" FromRole="TravelCity" ToRole="TravelState" />
+    <NavigationProperty Name="TravelPlaceDetails" Relationship="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelCity" FromRole="TravelCity" ToRole="TravelPlaceDetail" />
+    <NavigationProperty Name="TravelDetails" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__6FE99F9F" FromRole="TravelCity" ToRole="TravelDetail" />
+    <NavigationProperty Name="TravelDetails1" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__70DDC3D8" FromRole="TravelCity" ToRole="TravelDetail" />
+  </EntityType>
+  <EntityType Name="TravelCountry">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TravelStates" Relationship="TravelDataRecoderModel.FK_TravelState_TravelCountry" FromRole="TravelCountry" ToRole="TravelState" />
+  </EntityType>
+  <EntityType Name="TravelEmailException">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="EmailTo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EmailFrom" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="TravelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="Int16" />
+    <NavigationProperty Name="TravelDetail" Relationship="TravelDataRecoderModel.FK_TravelEmailException_ToTable" FromRole="TravelEmailException" ToRole="TravelDetail" />
+  </EntityType>
+  <EntityType Name="TravelErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Error" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="TravelId" Type="Int32" />
+    <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TravelPlaceDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TravelId" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <Property Name="StateId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TravelCity" Relationship="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelCity" FromRole="TravelPlaceDetail" ToRole="TravelCity" />
+    <NavigationProperty Name="TravelState" Relationship="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelState" FromRole="TravelPlaceDetail" ToRole="TravelState" />
+    <NavigationProperty Name="TravelDetail" Relationship="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelDetail" FromRole="TravelPlaceDetail" ToRole="TravelDetail" />
+  </EntityType>
+  <EntityType Name="TravelRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Int16" Nullable="false" />
+    <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TravelUserRoleMappings" Relationship="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable" FromRole="TravelRole" ToRole="TravelUserRoleMapping" />
+  </EntityType>
+  <EntityType Name="TravelState">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="CountryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TravelCities" Relationship="TravelDataRecoderModel.FK_TravelCity_TravelState" FromRole="TravelState" ToRole="TravelCity" />
+    <NavigationProperty Name="TravelCountry" Relationship="TravelDataRecoderModel.FK_TravelState_TravelCountry" FromRole="TravelState" ToRole="TravelCountry" />
+    <NavigationProperty Name="TravelPlaceDetails" Relationship="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelState" FromRole="TravelState" ToRole="TravelPlaceDetail" />
+    <NavigationProperty Name="TravelDetails" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__6E01572D" FromRole="TravelState" ToRole="TravelDetail" />
+    <NavigationProperty Name="TravelDetails1" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__6EF57B66" FromRole="TravelState" ToRole="TravelDetail" />
+  </EntityType>
+  <EntityType Name="TravelStatusMaster">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TravelDetailTrails" Relationship="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable_1" FromRole="TravelStatusMaster" ToRole="TravelDetailTrail" />
+    <NavigationProperty Name="TravelDetails" Relationship="TravelDataRecoderModel.FK_TravelDetail_travelStatus" FromRole="TravelStatusMaster" ToRole="TravelDetail" />
+  </EntityType>
+  <EntityType Name="TravelUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ContactNumber" Type="Int64" />
+    <Property Name="IsActive" Type="Int16" />
+    <Property Name="ParentId" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TravelUserRoleMappings" Relationship="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable1" FromRole="TravelUser" ToRole="TravelUserRoleMapping" />
+    <Property Name="OTP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TravelNotifications" Relationship="TravelDataRecoderModel.FK_TravelNotification_TravelNotification" FromRole="TravelUser" ToRole="TravelNotification" />
+    <Property Name="GeneratePasswordKey" Type="Guid" />
+    <Property Name="ProfileImage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TravelDetails" Relationship="TravelDataRecoderModel.FK_TravelDetail_ToTable" FromRole="TravelUser" ToRole="TravelDetail" />
+    <NavigationProperty Name="TravelNotifications1" Relationship="TravelDataRecoderModel.FK_TravelNotification_traveluser" FromRole="TravelUser" ToRole="TravelNotification" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="TravelUserRoleMapping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TravelRole" Relationship="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable" FromRole="TravelUserRoleMapping" ToRole="TravelRole" />
+    <NavigationProperty Name="TravelUser" Relationship="TravelDataRecoderModel.FK_TravelUserRoleMapping_ToTable1" FromRole="TravelUserRoleMapping" ToRole="TravelUser" />
+  </EntityType>
+  <Association Name="FK_TravelCity_TravelState">
+    <End Type="TravelDataRecoderModel.TravelState" Role="TravelState" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelCity" Role="TravelCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelCity">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelPlaceDetail_TravelCity">
+    <End Type="TravelDataRecoderModel.TravelCity" Role="TravelCity" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelPlaceDetail" Role="TravelPlaceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelPlaceDetail">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelState_TravelCountry">
+    <End Type="TravelDataRecoderModel.TravelCountry" Role="TravelCountry" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelState" Role="TravelState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCountry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelState">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelPlaceDetail_TravelState">
+    <End Type="TravelDataRecoderModel.TravelState" Role="TravelState" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelPlaceDetail" Role="TravelPlaceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelPlaceDetail">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelUserRoleMapping_ToTable">
+    <End Type="TravelDataRecoderModel.TravelRole" Role="TravelRole" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelUserRoleMapping" Role="TravelUserRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelUserRoleMapping">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelUserRoleMapping_ToTable1">
+    <End Type="TravelDataRecoderModel.TravelUser" Role="TravelUser" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelUserRoleMapping" Role="TravelUserRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelUserRoleMapping">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TravelNotification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="TravelUser" Relationship="TravelDataRecoderModel.FK_TravelNotification_TravelNotification" FromRole="TravelNotification" ToRole="TravelUser" />
+    <Property Name="StepNotificationId" Type="Int32" />
+    <Property Name="NotificationDate" Type="DateTime" Precision="3" />
+    <Property Name="TravelId" Type="Int32" />
+    <Property Name="ProcessedBy" Type="Int32" />
+    <NavigationProperty Name="TravelUser1" Relationship="TravelDataRecoderModel.FK_TravelNotification_traveluser" FromRole="TravelNotification" ToRole="TravelUser" />
+  </EntityType>
+  <Association Name="FK_TravelNotification_TravelNotification">
+    <End Type="TravelDataRecoderModel.TravelUser" Role="TravelUser" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelNotification" Role="TravelNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelNotification">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TravelDetailTrail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TravelId" Type="Int32" Nullable="false" />
+    <Property Name="StatusId" Type="Int32" Nullable="false" />
+    <Property Name="ProcessedBy" Type="Int32" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="StepNotes" Type="Int32" />
+    <NavigationProperty Name="TravelStatusMaster" Relationship="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable_1" FromRole="TravelDetailTrail" ToRole="TravelStatusMaster" />
+    <NavigationProperty Name="TravelDetail" Relationship="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable" FromRole="TravelDetailTrail" ToRole="TravelDetail" />
+    <Property Name="NextActionRole" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_TravelDetailTrail_ToTable_1">
+    <End Type="TravelDataRecoderModel.TravelStatusMaster" Role="TravelStatusMaster" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelDetailTrail" Role="TravelDetailTrail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelStatusMaster">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetailTrail">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TravelDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Summary_ProjectName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Summary_PrimeContractor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Summary_ContractNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Summary_TaskOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Summary_CorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Summary_SubmittedDate" Type="DateTime" Precision="3" />
+    <Property Name="Summary_TravelerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Detail_AirportDepartingFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Detail_TravelingFromCity" Type="Int32" Nullable="false" />
+    <Property Name="Detail_TravelingFromState" Type="Int32" Nullable="false" />
+    <Property Name="Detail_TravelingToCity" Type="Int32" Nullable="false" />
+    <Property Name="Detail_TravelingToState" Type="Int32" Nullable="false" />
+    <Property Name="Detail_ReturningToCity" Type="Int32" Nullable="false" />
+    <Property Name="Detail_ReturningToState" Type="Int32" Nullable="false" />
+    <Property Name="Detail_DepartingDate" Type="DateTime" Precision="3" />
+    <Property Name="Detail_ReturningDate" Type="DateTime" Precision="3" />
+    <Property Name="Detail_TotalDays" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Detail_TravelPurpose" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Detail_TravelSitePOC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Cost_CostOfAirFare" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_PerDiemRate" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_TotalPerDiem" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_RegistrationFee" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_RentalCar" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_Hotel" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_Miscellaneous" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_TotalExpense" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Cost_ODCBudgetStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="LastStatus" Type="Int32" />
+    <Property Name="IsProcedural" Type="Int16" />
+    <NavigationProperty Name="TravelUser" Relationship="TravelDataRecoderModel.FK_TravelDetail_ToTable" FromRole="TravelDetail" ToRole="TravelUser" />
+    <NavigationProperty Name="TravelStatusMaster" Relationship="TravelDataRecoderModel.FK_TravelDetail_travelStatus" FromRole="TravelDetail" ToRole="TravelStatusMaster" />
+    <NavigationProperty Name="TravelDetailTrails" Relationship="TravelDataRecoderModel.FK_TravelDetailTrail_ToTable" FromRole="TravelDetail" ToRole="TravelDetailTrail" />
+    <NavigationProperty Name="TravelEmailExceptions" Relationship="TravelDataRecoderModel.FK_TravelEmailException_ToTable" FromRole="TravelDetail" ToRole="TravelEmailException" />
+    <NavigationProperty Name="TravelPlaceDetails" Relationship="TravelDataRecoderModel.FK_TravelPlaceDetail_TravelDetail" FromRole="TravelDetail" ToRole="TravelPlaceDetail" />
+    <NavigationProperty Name="TravelCity" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__6FE99F9F" FromRole="TravelDetail" ToRole="TravelCity" />
+    <NavigationProperty Name="TravelCity1" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__70DDC3D8" FromRole="TravelDetail" ToRole="TravelCity" />
+    <NavigationProperty Name="TravelState" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__6E01572D" FromRole="TravelDetail" ToRole="TravelState" />
+    <NavigationProperty Name="TravelState1" Relationship="TravelDataRecoderModel.FK__TravelDet__Detai__6EF57B66" FromRole="TravelDetail" ToRole="TravelState" />
+  </EntityType>
+  <Association Name="FK_TravelDetail_ToTable">
+    <End Type="TravelDataRecoderModel.TravelUser" Role="TravelUser" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelDetail_travelStatus">
+    <End Type="TravelDataRecoderModel.TravelStatusMaster" Role="TravelStatusMaster" Multiplicity="0..1" />
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelStatusMaster">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="LastStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelDetailTrail_ToTable">
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelDetailTrail" Role="TravelDetailTrail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetailTrail">
+        <PropertyRef Name="TravelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelEmailException_ToTable">
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelEmailException" Role="TravelEmailException" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelEmailException">
+        <PropertyRef Name="TravelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelPlaceDetail_TravelDetail">
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelPlaceDetail" Role="TravelPlaceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelDetail">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelPlaceDetail">
+        <PropertyRef Name="TravelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelDet__Detai__6FE99F9F">
+    <End Type="TravelDataRecoderModel.TravelCity" Role="TravelCity" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingFromCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelDet__Detai__70DDC3D8">
+    <End Type="TravelDataRecoderModel.TravelCity" Role="TravelCity" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelCity">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingToCity" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelDet__Detai__6E01572D">
+    <End Type="TravelDataRecoderModel.TravelState" Role="TravelState" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingToState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TravelDet__Detai__6EF57B66">
+    <End Type="TravelDataRecoderModel.TravelState" Role="TravelState" Multiplicity="1" />
+    <End Type="TravelDataRecoderModel.TravelDetail" Role="TravelDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelState">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TravelDetail">
+        <PropertyRef Name="Detail_TravelingFromState" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TravelNotification_traveluser">
+    <End Type="TravelDataRecoderModel.TravelUser" Role="TravelUser" Multiplicity="0..1" />
+    <End Type="TravelDataRecoderModel.TravelNotification" Role="TravelNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TravelUser">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TravelNotification">
+        <PropertyRef Name="ProcessedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="EmailException">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MailTo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MailCC" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+    <Property Name="MailSubject" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MailMessage" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="ErrorInnerException" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="ErrorInnerExceptionMessage" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ErrorInnerException" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ErrorMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ErrorInnerExceptionMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ErrorTimeStamp" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

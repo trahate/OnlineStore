@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Add User";
+}
+
+@model TravelDataRecorder.Model.ViewModel.TravelUserViewModel
+@using TravelDataRecorder.Common.TravelDataEnum
+@using (Html.BeginForm())
+{
+    <div class="page-header">
+        <h3 class="page-title">
+            Add User
+        </h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" })/ Add User</li>
+                }
+                else if (ViewBag.Role == (int)UserRoleEnum.User)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" })/ Add User</li>
+                }
+                else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" })/ Add User</li>
+                }
+
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    @*<h4 class="card-title"> Add User</h4>*@
+                    <form class="forms-sample">
+                        <div class="form-group">
+                            <label for="FirstName">First Name</label>
+                            @Html.TextBoxFor(x => x.FirstName, new { @placeholder = "First Name", @class = "form-control", @id = "txtFirstName" })
+                        </div>
+                        <div class="form-group">
+                            <label for="LastName">Last Name</label>
+                            @Html.TextBoxFor(x => x.LastName, new { @placeholder = "Last Name", @class = "form-control", @id = "txtLastName" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Email">Email<span class="red">*</span></label>
+                            @Html.TextBoxFor(x => x.Email, new { @placeholder = "Email Address", @class = "form-control", @id = "txtEmail" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lname" id="lbadduser" class="control-label">Select Role<span class="red">*</span></label>
+                            @Html.DropDownListFor(m => m.RoleId, new SelectList(ViewBag.RoleList, "Id", "Name"), "Select Role", new { @class = "select2 form-control" })
+                        </div>
+
+                        <button type="submit" id="adduser" class="btn btn-info mr-2 button-premier">Submit</button>
+                        <button type="reset" class="btn btn-dark secondary-button">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<div class="main-validation" style="display:none"> <p class="show-msg"></p> <i class="mdi mdi-close"></i> </div>
+<script src="~/Scripts/Travel.js"></script>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        $("#mainLoader").hide();
+        showErrorMessage("@ViewBag.Message", 4000, 'errorMessage');
+    </script>
+}

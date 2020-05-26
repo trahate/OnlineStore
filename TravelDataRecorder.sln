@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelDataRecorder", "TravelDataRecorder\TravelDataRecorder.csproj", "{46CF4EA0-BF77-4F88-8D8B-58552C022256}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelDataRecorder.Database", "TravelDataRecorder.Database\TravelDataRecorder.Database.csproj", "{C104E7BB-3465-41A8-8E66-E8755C9082DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelDataRecorder.Model", "TravelDataRecorder.Model\TravelDataRecorder.Model.csproj", "{7CC956A8-891C-454A-95F0-313E2E638782}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelDataRecorder.Service", "TravelDataRecorder.Service\TravelDataRecorder.Service.csproj", "{9F160AA7-5C4D-4AA5-B6F7-476EBD852D2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelDataRecorder.Common", "TravelDataRecorder.Common\TravelDataRecorder.Common.csproj", "{181CC647-16E4-4BBE-A2D7-F1697A3D4ED7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46CF4EA0-BF77-4F88-8D8B-58552C022256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46CF4EA0-BF77-4F88-8D8B-58552C022256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46CF4EA0-BF77-4F88-8D8B-58552C022256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46CF4EA0-BF77-4F88-8D8B-58552C022256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C104E7BB-3465-41A8-8E66-E8755C9082DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C104E7BB-3465-41A8-8E66-E8755C9082DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C104E7BB-3465-41A8-8E66-E8755C9082DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C104E7BB-3465-41A8-8E66-E8755C9082DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CC956A8-891C-454A-95F0-313E2E638782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CC956A8-891C-454A-95F0-313E2E638782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CC956A8-891C-454A-95F0-313E2E638782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CC956A8-891C-454A-95F0-313E2E638782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F160AA7-5C4D-4AA5-B6F7-476EBD852D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F160AA7-5C4D-4AA5-B6F7-476EBD852D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F160AA7-5C4D-4AA5-B6F7-476EBD852D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F160AA7-5C4D-4AA5-B6F7-476EBD852D2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181CC647-16E4-4BBE-A2D7-F1697A3D4ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181CC647-16E4-4BBE-A2D7-F1697A3D4ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181CC647-16E4-4BBE-A2D7-F1697A3D4ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181CC647-16E4-4BBE-A2D7-F1697A3D4ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

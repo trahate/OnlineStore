@@ -1,0 +1,16 @@
+D:\GrayCellTech\GITProjects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\bin\Debug\TravelDataRecorder.Common.dll
+D:\GrayCellTech\GITProjects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\bin\Debug\TravelDataRecorder.Common.pdb
+D:\GrayCellTech\GITProjects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.dll
+D:\GrayCellTech\GITProjects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.pdb
+D:\GrayCellTech\GITProjects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.csprojResolveAssemblyReference.cache
+E:\projects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\bin\Debug\TravelDataRecorder.Common.dll
+E:\projects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\bin\Debug\TravelDataRecorder.Common.pdb
+E:\projects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.csprojResolveAssemblyReference.cache
+E:\projects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.dll
+E:\projects\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.pdb
+E:\TravelDataRecoder\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\bin\Debug\TravelDataRecorder.Common.dll
+E:\TravelDataRecoder\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\bin\Debug\TravelDataRecorder.Common.pdb
+E:\TravelDataRecoder\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.csprojAssemblyReference.cache
+E:\TravelDataRecoder\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.csproj.CoreCompileInputs.cache
+E:\TravelDataRecoder\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.dll
+E:\TravelDataRecoder\TravelDataRecoder\TravelDataRecorder\TravelDataRecorder.Common\obj\Debug\TravelDataRecorder.Common.pdb

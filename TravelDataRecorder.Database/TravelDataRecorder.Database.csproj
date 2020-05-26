@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C104E7BB-3465-41A8-8E66-E8755C9082DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TravelDataRecorder.Database</RootNamespace>
+    <AssemblyName>TravelDataRecorder.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAL\EmailException.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ErrorLog.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelCity.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelCountry.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelDataRecorderModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TravelDataRecorderModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelDataRecorderModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelDataRecorderModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TravelDataRecorderModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelDetail.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelDetailTrail.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelEmailException.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelErrorLog.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelNotification.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelPlaceDetail.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelRole.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelState.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelStatusMaster.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelUser.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TravelUserRoleMapping.cs">
+      <DependentUpon>TravelDataRecorderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AdminRepository.cs" />
+    <Compile Include="Repository\DbErrorHandling.cs" />
+    <Compile Include="Repository\IAdminRepository.cs" />
+    <Compile Include="Repository\IDbErrorHandling.cs" />
+    <Compile Include="Repository\INotificationRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ITravelCityRepository.cs" />
+    <Compile Include="Repository\ITravelStateRepository.cs" />
+    <Compile Include="Repository\ITravelRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
+    <Compile Include="Repository\NotificationRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\TravelCityRepository.cs" />
+    <Compile Include="Repository\TravelStateRepository.cs" />
+    <Compile Include="Repository\TravelRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="DAL\TravelDataRecorderModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TravelDataRecorderModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="DAL\TravelDataRecorderModel.edmx.diagram">
+      <DependentUpon>TravelDataRecorderModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DAL\TravelDataRecorderModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TravelDataRecorderModel.Context.cs</LastGenOutput>
+      <DependentUpon>TravelDataRecorderModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="DAL\TravelDataRecorderModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TravelDataRecorderModel.edmx</DependentUpon>
+      <LastGenOutput>TravelDataRecorderModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TravelDataRecorder.Common\TravelDataRecorder.Common.csproj">
+      <Project>{181cc647-16e4-4bbe-a2d7-f1697a3d4ed7}</Project>
+      <Name>TravelDataRecorder.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

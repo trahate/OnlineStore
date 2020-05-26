@@ -1,0 +1,522 @@
+﻿@using TravelDataRecorder.Common.TravelDataEnum
+@model TravelDataRecorder.Model.ViewModel.TravelDetailViewModel
+@{
+    if (ViewBag.Role == (int)UserRoleEnum.User && ViewBag.action != "ViewData")
+    {
+        ViewBag.Title = "Add Travel Data";
+    }
+    else
+    {
+        ViewBag.Title = "View Travel Data";
+    }
+}
+
+@Styles.Render("~/Content/datetimepickercss")
+@Scripts.Render("~/bundles/datetimepickerjs")
+
+<div class="page-header">
+    <h3 class="page-title">
+        @if (ViewBag.Role == (int)UserRoleEnum.User && ViewBag.action != "ViewData")
+        {
+            <span>Add Travel Data</span>
+        }
+        else
+        {
+
+            <span> View Travel Data</span>
+        }
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" })/ Add Travel Data</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.User)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" })/ Add Travel Data</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" })/ Add Travel Data</li>
+            }
+        </ol>
+    </nav>
+
+</div>
+
+
+<div class="col-12 grid-margin stretch-card">
+    @if (ViewBag.Role == (int)UserRoleEnum.User && ViewBag.action != "ViewData")
+    {
+        using (Html.BeginForm("addtravelform", "travel", FormMethod.Post, new { id = "AddTravelForm" }))
+        {
+            @Html.HiddenFor(m => m.traveldetail.Id)
+            <div class="row">
+                <div>
+                    <form class="forms-sample">
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <h4 class="card-title">SUMMARY </h4>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Summary_ProjectName">Project Name</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Summary_ProjectName, new { @maxlength = "50", @class = "form-control txt js-clear", @id = "projectname", value = "@Model.traveldetail.Summary_ProjectName" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Summary_PrimeContractor">Prime Contractor</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Summary_PrimeContractor, new { @maxlength = "50", @class = "form-control txt js-clear", @id = "primecontractor", value = "@Model.traveldetail.Summary_PrimeContractor" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Summary_ContractNumber">Contract Number</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Summary_ContractNumber, new { @class = "form-control js-clear ", @id = "contractnumber", value = "@Model.traveldetail.Summary_ContractNumber" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Summary_TaskOrder">Task Order</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Summary_TaskOrder, new { @class = "form-control js-clear ", @min = "0", @oninput = "validity.valid||(value='')", @id = "taskorder", @type = "number", value = "@Model.traveldetail.Summary_TaskOrder" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Summary_CorName">COR Name</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Summary_CorName, new { @class = "form-control txt js-clear ", @maxlength = "50", @id = "corname", value = "@Model.traveldetail.Summary_CorName" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Summary_TravelerName">Traveller Name</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Summary_TravelerName, new { @class = "form-control txt js-clear ", @maxlength = "50", @id = "travelername", value = "@Model.traveldetail.Summary_TravelerName" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <h4 class="card-title">TRAVEL DETAILS</h4>
+                                <div class="form-group">
+                                    <label for="traveldetail.Detail_AirportDepartingFrom">Airport Departing From</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_AirportDepartingFrom, new { @class = "form-control txt js-clear ", @maxlength = "25", @id = "airportdepartingfrom", value = "@Model.traveldetail.Detail_AirportDepartingFrom" })
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Detail_TravelPurpose">Travel Purpose</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Detail_TravelPurpose, new { @class = "form-control txt js-clear ", @maxlength = "30", @id = "travelpurpose", value = "@Model.traveldetail.Detail_TravelPurpose" })
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Detail_TravelSitePOC">Site POC</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Detail_TravelSitePOC, new { @class = "form-control txt js-clear ", @maxlength = "30", @id = "sitepoc", value = "@Model.traveldetail.Detail_TravelSitePOC" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Detail_TravelingFromState">Travelling From</label>
+                                        @Html.DropDownListFor(m => m.traveldetail.Detail_TravelingFromState, new SelectList(ViewBag.StateList, "Id", "Name"), "Select State", new { @class = "select2 form-control js-clear", @onchange = "GetFromCity()" })
+                                    </div>
+
+                                    <div class="form-group col-md-6 m-t-22">
+                                        @Html.DropDownListFor(m => m.traveldetail.Detail_TravelingFromCity, new SelectList(Model.TravelFromCity, "Id", "Name", Model.traveldetail.Detail_TravelingFromCity), "Select City", new { @class = "select2 form-control js-clear" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Detail_TravelingToState">Travelling To</label>
+                                        @Html.DropDownListFor(m => m.traveldetail.Detail_TravelingToState, new SelectList(ViewBag.StateList, "Id", "Name"), "Select State", new { @class = "select2 form-control js-clear", @onchange = "GetToCity()" })
+                                    </div>
+
+
+                                    <div class="form-group col-md-6 m-t-22">
+                                        @Html.DropDownListFor(m => m.traveldetail.Detail_TravelingToCity, new SelectList(Model.TravelToCity, "Id", "Name", Model.traveldetail.Detail_TravelingToCity), "Select City", new { @class = "select2 form-control js-clear" })
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Detail_ReturningToState">Returning To</label>
+                                        @Html.DropDownListFor(model => model.traveldetail.Detail_ReturningToState, new SelectList(ViewBag.StateList, "Id", "Name"), "Select State", new { @class = "select2 form-control js-clear", @onchange = "GetReturnToCity()" })
+                                    </div>
+
+
+                                    <div class="form-group col-md-6 m-t-22">
+                                        @Html.DropDownListFor(model => model.traveldetail.Detail_ReturningToCity, new SelectList(Model.TravelReturnCity, "Id", "Name", Model.traveldetail.Detail_ReturningToCity), "Select City", new { @class = "select2 form-control js-clear" })
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label for="Detail_DepartingDate">Departing Date</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Detail_DepartingDate, "{0:MMM d, yyyy}", new { @class = "form-control dateDiff js-allowOnlyTab js-clear", @id = "start_date" })
+                                        @*<input id="start_date" name="start_date" class="form-control dateDiff" onkeydown="return false;" value="@Model.traveldetail.Detail_DepartingDate">*@
+                                    </div>
+
+                                    <div class="form-group col-lg-4">
+                                        <label>Returning Date</label>
+                                        @*<input id="end_date" name="end_date" class="form-control dateDiff" onkeydown="return false;" value="@Model.traveldetail.Detail_ReturningDate">*@
+                                        @Html.TextBoxFor(x => x.traveldetail.Detail_ReturningDate, "{0:MMM d, yyyy}", new { @class = "form-control dateDiff js-allowOnlyTab js-clear ", @id = "end_date" })
+                                    </div>
+
+                                    <div class="form-group col-lg-4">
+                                        <label>Total Travel Days</label>
+                                        <input type="text" id="totaltraveldays" name="traveldetail.Detail_TotalDays" oninput="validity.valid||(value='')" class="form-control js-allowOnlyTab js-clear " value="@Model.traveldetail.Detail_TotalDays" readonly="readonly">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <h4 class="card-title">TRAVEL COST </h4>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_CostOfAirFare">Cost Of Airfare</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_CostOfAirFare, new { @class = "form-control amt js-clear  ", @min = "0", @oninput = "validity.valid||(value='')", @type = "number", @maxlength = "30", @id = "costofairfare", value = "@Model.traveldetail.Cost_CostOfAirFare" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_PerDiemRate">Per DIEM Rate </label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_PerDiemRate, new { @class = "form-control amt js-clear   ", @min = "0", @oninput = "validity.valid||(value='')", @type = "number", @maxlength = "30", @id = "perdiemrate", value = "@Model.traveldetail.Cost_PerDiemRate" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_TotalPerDiem">Total Per DIEM </label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_TotalPerDiem, new { @class = "form-control amt js-clear  ", @min = "0", @oninput = "validity.valid||(value='')", @type = "number", @maxlength = "30", @id = "totalperdiem", value = "@Model.traveldetail.Cost_TotalPerDiem" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_TotalPerDiem">Registration Fee</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_RegistrationFee, new { @class = "form-control amt js-clear  ", @min = "0", @oninput = "validity.valid||(value='')", @type = "number", @maxlength = "30", @id = "registrationfee", value = "@Model.traveldetail.Cost_RegistrationFee" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_RentalCar">Rental Car</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_RentalCar, new { @class = "form-control amt js-clear  ", @min = "0", @oninput = "validity.valid||(value='')", @type = "number", @maxlength = "30", @id = "rentalcar", value = "@Model.traveldetail.Cost_RentalCar" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_Hotel">Hotel/Lodging</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_Hotel, new { @class = "form-control amt js-clear  ", @min = "0", @oninput = "validity.valid||(value='')", @type = "number", @maxlength = "30", @id = "hotellodging", value = "@Model.traveldetail.Cost_Hotel" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_Miscellaneous">Miscellaneous</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_Miscellaneous, new { @class = "form-control amt js-clear  ", @min = "0", @oninput = "validity.valid||(value='')", @type = "number", @maxlength = "30", @id = "miscellaneous", value = "@Model.traveldetail.Cost_Miscellaneous" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_TotalExpense">Total Expenses</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_TotalExpense, new { @class = "form-control js-clear   ", @type = "number", @id = "totalexpenses", value = "@Model.traveldetail.Cost_TotalExpense", @readonly = "readonly" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="traveldetail.Cost_ODCBudgetStatus">ODC Budget Status</label>
+                                        @Html.TextBoxFor(x => x.traveldetail.Cost_ODCBudgetStatus, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "50", @id = "odcbudgetstatus", value = "@Model.traveldetail.Cost_ODCBudgetStatus" })
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        <button type="submit" id="submittravel" class="btn btn-info mr-2 button-premier">Save</button>
+                                        @if (ViewBag.action != null && ViewBag.action == "ResubmitTraveldata")
+                                        {
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-dark secondary-button" id="btnCancel1">Cancel</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+    else if (ViewBag.Role == (int)UserRoleEnum.ProjectManager || ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2 || ViewBag.Role == (int)UserRoleEnum.User)
+    {
+        <div class="row">
+            <div>
+                <form class="forms-sample">
+
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h4 class="card-title">SUMMARY</h4>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Summary_ProjectName">Project Name</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Summary_ProjectName, new { @maxlength = "50", @class = "form-control txt js-clear", @id = "projectname", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Summary_PrimeContractor">Prime Contractor</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Summary_PrimeContractor, new { @maxlength = "50", @class = "form-control txt js-clear", @id = "primecontractor", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Summary_ContractNumber">Contract Number</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Summary_ContractNumber, new { @class = "form-control js-clear ", @id = "contractnumber", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Summary_TaskOrder">Task Order</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Summary_TaskOrder, new { @class = "form-control js-clear ", @min = "0", @oninput = "validity.valid||(value='')", @id = "taskorder", @type = "number", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Summary_CorName">COR Name</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Summary_CorName, new { @class = "form-control txt js-clear ", @maxlength = "50", @id = "corname", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Summary_TravelerName">Traveller Name</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Summary_TravelerName, new { @class = "form-control txt js-clear ", @maxlength = "50", @id = "travelername", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h4 class="card-title">TRAVEL DETAILS</h4>
+                            <div class="form-group">
+                                <label for="traveldetail.Detail_AirportDepartingFrom">Airport Departing From</label>
+                                @Html.TextBoxFor(x => x.traveldetail.Detail_AirportDepartingFrom, new { @class = "form-control txt js-clear ", @maxlength = "25", @id = "airportdepartingfrom", @readonly = "readonly" })
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Detail_TravelPurpose">Travel Purpose</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_TravelPurpose, new { @class = "form-control txt js-clear ", @maxlength = "30", @id = "travelpurpose", @readonly = "readonly" })
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Detail_TravelSitePOC">Site POC</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_TravelSitePOC, new { @class = "form-control txt js-clear ", @maxlength = "30", @id = "sitepoc", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Detail_TravelingFromState">Travelling From</label>
+                                    @*<input type="text" id="Detail_TravelingFromState" maxlength="30" class="form-control txt" value="@Model.travelstate.Where(x => x.Id == Model.traveldetail.Detail_TravelingFromState).Select(d => d.Name).Single()" name="Detail_TravelingFromState" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_TravelingFromState, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "30", @id = "Detail_TravelingFromState", @readonly = "readonly" })
+                                </div>
+
+                                <div class="form-group col-md-6 m-t-22">
+                                    @*<input type="text" id="Detail_TravelingFromCity" maxlength="30" class="form-control txt" value="@Model.travelcity.Where(x => x.Id == Model.traveldetail.Detail_TravelingFromCity).Select(d => d.Name).Single()" name="Detail_TravelingFromCity" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_TravelingFromCity, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "30", @id = "Detail_TravelingFromCity", @readonly = "readonly" })
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Detail_TravelingToState">Travelling To</label>
+                                    @*<input type="text" id="Detail_TravelingToState" maxlength="30" class="form-control txt" value="@Model.travelstate.Where(x => x.Id == Model.traveldetail.Detail_TravelingToState).Select(d => d.Name).Single()" name="Detail_TravelingToState" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_TravelingToState, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "30", @id = "Detail_TravelingToState", @readonly = "readonly" })
+
+                                </div>
+
+
+                                <div class="form-group col-md-6 m-t-22">
+                                    @*<input type="text" id="Detail_TravelingToCity" maxlength="30" class="form-control txt" value="@Model.travelcity.Where(x => x.Id == Model.traveldetail.Detail_TravelingToCity).Select(d => d.Name).Single()" name="Detail_TravelingToCity" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_TravelingToCity, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "30", @id = "Detail_TravelingToCity", @readonly = "readonly" })
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Detail_ReturningToState">Returning To</label>
+                                    @*<input type="text" id="Detail_ReturningToState" maxlength="30" class="form-control txt" value="@Model.travelstate.Where(x => x.Id == Model.traveldetail.Detail_ReturningToState).Select(d => d.Name).Single()" name="Detail_TravelingToCity" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_ReturningToState, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "30", @id = "Detail_ReturningToState", @readonly = "readonly" })
+                                </div>
+
+
+                                <div class="form-group col-md-6 m-t-22">
+                                    @*<input type="text" id="Detail_ReturningToCity" maxlength="30" class="form-control txt" value="@Model.travelcity.Where(x => x.Id == Model.traveldetail.Detail_ReturningToCity).Select(d => d.Name).Single()" name="Detail_ReturningToCity" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_ReturningToCity, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "30", @id = "Detail_ReturningToCity", @readonly = "readonly" })
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>Departing Date</label>
+                                    @*<input type="text" name="Detail_DepartingDate" class="form-control " value="@Model.traveldetail.Detail_DepartingDate.ToString(@"MM\/dd\/yyyy")" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_DepartingDate, "{0:MMM d, yyyy}", new { @class = "form-control js-clear", @readonly = "" })
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label>Returning Date</label>
+                                    @*<input type="text" name="Detail_ReturningDate" class="form-control " value="@Model.traveldetail.Detail_ReturningDate.ToString(@"MM\/dd\/yyyy")" readonly>*@
+                                    @Html.TextBoxFor(x => x.traveldetail.Detail_ReturningDate, "{0:MMM d, yyyy}", new { @class = "form-control js-clear", @readonly = "" })
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label>Total Travel Days</label>
+                                    <input type="text" id="totaltraveldays" name="Detail_TotalDays" oninput="validity.valid||(value='')" class="form-control " onkeydown="return false;" value="@Model.traveldetail.Detail_TotalDays" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card m-b-30">
+                        <div class="card-body">
+                            <h4 class="card-title">TRAVEL COST</h4>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_CostOfAirFare">Cost Of Airfare</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_CostOfAirFare, new { @class = "form-control amt js-clear ", @min = "0", @type = "number", @maxlength = "30", @id = "costofairfare", @readonly = "readonly" })
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_PerDiemRate">Per DIEM Rate</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_PerDiemRate, new { @class = "form-control amt js-clear ", @min = "0", @type = "number", @maxlength = "30", @id = "perdiemrate", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_TotalPerDiem">Total Per DIEM</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_TotalPerDiem, new { @class = "form-control amt js-clear ", @min = "0", @type = "number", @maxlength = "30", @id = "totalperdiem", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_RegistrationFee">Registration Fee</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_RegistrationFee, new { @class = "form-control amt js-clear ", @min = "0", @type = "number", @maxlength = "30", @id = "registrationfee", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_RentalCar">Rental Car</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_RentalCar, new { @class = "form-control amt js-clear ", @min = "0", @type = "number", @maxlength = "30", @id = "rentalcar", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_Hotel">Hotel/Lodging</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_Hotel, new { @class = "form-control amt js-clear ", @min = "0", @type = "number", @maxlength = "30", @id = "hotellodging", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_Miscellaneous">Miscellaneous</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_Miscellaneous, new { @class = "form-control amt js-clear ", @min = "0", @type = "number", @maxlength = "30", @id = "miscellaneous", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_TotalExpense">Total Expense</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_TotalExpense, new { @class = "form-control js-clear  ", @type = "number", @id = "totalexpenses", @readonly = "readonly" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="traveldetail.Cost_ODCBudgetStatus">ODC Budget Status</label>
+                                    @Html.TextBoxFor(x => x.traveldetail.Cost_ODCBudgetStatus, new { @class = "form-control txt js-clear ", @type = "text", @maxlength = "50", @id = "odcbudgetstatus", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (Model.traveldetail.TravelDetailTrails.Where(x => x.StatusId != (int)TravelRequestStatusEnum.SubmittedByUser).Count() > 0)
+                    {
+
+                        <div class="card m-b-30">
+                            <div class="card-body">
+                                <h4 class="card-title">Approval</h4>
+
+                                @{
+                                    var arrTraveldetailVM = Model.lstTraveldetailVM.ToArray();
+                                    int count = 0;
+
+                                    for (int j = 0; j <= Model.lstTraveldetailVM.Where(x => x.LastStatus == (int)TravelRequestStatusEnum.Resubmitted).Count(); j++)
+                                    {
+                                        int innercount = 0;
+                                        <div class="approve-process">
+                                            @for (int i = count; i < arrTraveldetailVM.Length; i++)
+                                            {
+
+                                                if (arrTraveldetailVM[i].LastStatus == (int)TravelRequestStatusEnum.Resubmitted)
+                                                {
+                                                    if (innercount != 0)
+                                                    {
+
+                                                        break;
+
+                                                    }
+                                                }
+                                                innercount++;
+                                                count++;
+                                                <div class="row approve-cont">
+                                                    <div class="col-md-4 form-group">
+                                                        <label>@(arrTraveldetailVM[i].RoleName == null ? "" : arrTraveldetailVM[i].RoleName)</label>
+
+                                                        <span>@arrTraveldetailVM[i].UserName</span>
+                                                    </div>
+                                                    <div class="col-md-4  form-group">
+                                                        @*<label>Comments:</label>*@
+                                                        <i class="mdi mdi-comment-processing-outline"></i> <span>@arrTraveldetailVM[i].Comments</span>
+                                                    </div>
+                                                    <div class="col-md-4  form-group">
+                                                        @*<label>Date:</label>*@
+                                                        <i class="mdi mdi-calendar"></i> <span>@arrTraveldetailVM[i].Date.Value.ToString(@"MM\/dd\/yyyy")</span>
+                                                    </div>
+
+
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+
+                                }
+
+
+                            </div>
+                        </div>
+
+                                    }
+                    <div>
+                        @*<button type="submit" id="submittravel" class="btn btn-info mr-2">Save</button>
+                            <button type="reset" class="btn btn-dark" id="btnCancel">Cancel</button>*@
+                        @if (ViewBag.ShowNotify != "view")
+                        {
+                            <div class="col-md-12 sel-search text-right">
+                                <button type="button" class="btn btn-info mr-2 secondary-button" onclick="location.href='@Url.Action("travellist", "travel")'">Back</button>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+                                    }
+
+    }
+</div>
+
+<div class="main-validation" style="display:none"> <p class="show-msg"></p> <i class="mdi mdi-close"></i> </div>
+
+<script src="~/Scripts/Travel.js"></script>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        showErrorMessage("@ViewBag.Message", 4000, 'successMessage');
+    </script>
+}
+    @*@if (ViewBag.action != "SubmitData")
+        {
+            <script type="text/javascript">
+
+                setTimeout(function () {
+                    // $("#traveldetail_Detail_TravelingFromCity").val('@Model.traveldetail.Detail_TravelingFromCity');
+                    //$("#traveldetail_Detail_TravelingToCity").val('@Model.traveldetail.Detail_TravelingToCity');
+                    // $("#traveldetail_Detail_ReturningToCity").val('@Model.traveldetail.Detail_ReturningToCity');
+                    $('#start_date')[0].value = '@Model.traveldetail.Detail_DepartingDate.ToString(@"MM\/dd\/yyyy")';
+                    $('#end_date')[0].value = '@Model.traveldetail.Detail_ReturningDate.ToString(@"MM\/dd\/yyyy")';
+                }, 500);
+            </script>
+        }*@
+    <script type="text/javascript">
+
+        //function showErrorMessage(message, hideAfterTime) {
+        //    //close existing popup if any
+        //    $('.main-validation').hide();
+        //    //show the error message
+        //    $('.main-validation').show();
+        //    //display the message
+        //    $('.main-validation .show-msg').text(message);
+        //    //hide error message after specified time
+        //    setTimeout(function () {
+        //        $('.main-validation').fadeOut();
+        //    }, hideAfterTime);
+        //    return false;
+        //}
+        //$(".main-validation i").click(function () {
+        //    $(".main-validation").hide();
+        //});
+        function showErrorMessage(message, hideAfterTime, messageClass) {
+            $(".main-validation").removeClass('errorMessage');
+            $(".main-validation").removeClass('successMessage');
+            $(".main-validation").removeClass('warningMessage');
+            $(".main-validation").addClass(messageClass);
+            //close existing popup if any
+            $('.main-validation').hide();
+            //show the error message
+            $('.main-validation').show();
+            //display the message
+            $('.main-validation .show-msg').text(message);
+            //hide error message after specified time
+            setTimeout(function () {
+                $('.main-validation').fadeOut();
+            }, hideAfterTime);
+            return false;
+        }
+        $(".main-validation i").click(function () {
+            $(".main-validation").hide();
+        });
+
+    </script>

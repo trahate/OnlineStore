@@ -1,0 +1,102 @@
+﻿@model TravelDataRecorder.Model.ViewModel.DashboardViewModel
+<div class="row d-flex">
+    <div class="col-md-12 flex-column User dashboard-cards">
+        <div class="row">
+            <div id="NewTravelRequest" class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-total-travel-request card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-account-multiple float-right"></i>
+                        <h2>@Model.New</h2>
+                        @*<h6 class="card-text">Increased by 60%</h6>*@
+                        <h4 class="font-weight-normal mb-3">New Travel Request</h4>
+                    </div>
+                </div>
+            </div>
+            <div id ="ApprovedTravelRequest"class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-account-check float-right"></i>
+                        <h2>@Model.Approved</h2>
+                        @*<h6 class="card-text">Decreased by 10%</h6>*@
+                        <h4 class="font-weight-normal mb-3"> Approved Travel Request </h4>
+                    </div>
+                </div>
+            </div>
+            <div id="PendingTravelRequest" class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-warning card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-account-settings float-right"></i>
+                        <h2>@Model.Pending</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                        <h4 class="font-weight-normal mb-3">Pending Travel Request </h4>
+                    </div>
+                </div>
+            </div>
+            <div id="RejectedTravelRequest" class="col-md-3 stretch-card grid-margin">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-account-remove float-right"></i>
+                        <h2>@Model.Reject</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                        <h4 class="font-weight-normal mb-3">Rejected Travel Request</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+<script>
+    $(document).ready(function () {
+       
+        //  var urlUser = '/TravelDataRecorder/travel/travellist';
+        var urlUser = '@Url.Action("travellist", "travel")';
+        if(window.location.origin!="http://localhost")
+        {
+            var urlUser = '/travel/travellist';
+        }
+        $('#NewTravelRequest').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.New!=0)
+            {
+                
+                sessionStorage.Criteria = "New";
+                $("#mainLoader").show();
+                window.location.href =  urlUser;
+            }
+        });
+        $('#ApprovedTravelRequest').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.Approved!=0)
+            {
+                sessionStorage.Criteria = "Approved";
+                $("#mainLoader").show();
+                window.location.href =  urlUser;
+            }
+        });
+        $('#PendingTravelRequest').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.Pending!=0)
+            {
+                sessionStorage.Criteria = "Pending";
+                $("#mainLoader").show();
+                window.location.href =  urlUser;
+            }
+        });
+        $('#RejectedTravelRequest').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.Reject!=0)
+            {
+                sessionStorage.Criteria = "Reject";
+                $("#mainLoader").show();
+                window.location.href = urlUser;
+            }
+        });
+    });
+
+</script>

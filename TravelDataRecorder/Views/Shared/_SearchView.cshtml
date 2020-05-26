@@ -1,0 +1,25 @@
+﻿@model TravelDataRecorder.Model.ViewModel.DashboardViewModel
+
+@using (Html.BeginForm("dashboard", "dashboard", FormMethod.Post, new { id = "searchform" }))
+{
+    <ul>
+        <li>
+            <div class="input-group">
+                @*<input type="text" placeholder="Start Date" class="form-control dashboardCal" value="">*@
+                @Html.TextBoxFor(x => x.FromDate, "{0:MMM d, yyyy}", new { @class = "form-control filterCal", @placeholder = "Start Date", @autocomplete = "off" })
+
+            </div>
+        </li>
+        <li>
+            <div class="input-group">
+                @*<input type="text" placeholder="End Date" class="form-control dashboardCal" value="">*@
+                @Html.TextBoxFor(x => x.ToDate, "{0:MMM d, yyyy}", new { @class = "form-control filterCal", @placeholder = "End Date", @autocomplete = "off" })
+            </div>
+        </li>
+        <li>
+            @*<input type="button" id="submitdashboard" class="btn btn-info" value="Go" />*@
+            <input type="submit" class="btn btn-info" value="Go" />
+        </li>
+    </ul>
+}
+

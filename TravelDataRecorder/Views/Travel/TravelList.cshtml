@@ -1,0 +1,244 @@
+﻿@using TravelDataRecorder.Common.TravelDataEnum
+@model IEnumerable<TravelDataRecorder.Model.TravelDetailModel>
+@{
+    ViewBag.Title = "Manage Travel Request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-header m-b-15">
+    <h3 class="page-title">
+        Manage Travel Request
+    </h3>
+    <nav aria-label="breadcrumb">
+
+        <ol class="breadcrumb">
+            @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Manage Travel Request</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.User)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Manage Travel Request</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+            {
+                <li class="breadcrumb-item"> @Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Manage Travel Request</li>
+            }
+        </ol>
+    </nav>
+</div>
+<div class="m-b-15 row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-sm-6">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6 sel-search text-right">
+
+        @if (@ViewBag.LastUrl != null)
+        {
+            <a role="button" class="btn btn-info mr-2 btn-sm secondary-button" href="@ViewBag.LastUrl">Back</a>
+        }
+        @*@Html.DropDownList("userslist", null, "All", new { @class = "select2 form-control " })*@
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="m-b-20 row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="search-box-new">
+                            @Html.TextBox("search", null, new { @class = "form-control", maxlength = 50, @placeholder = "Search" })
+                            <i style="display:none" id="fafatimes" class="mdi mdi-close"></i>
+                            <i id="faSearch" class="mdi mdi-magnify"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 sel-search text-right">
+
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table" id="jqueryTravelDataTable">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Contract Number</th>
+                        <th>Submitted Date</th>
+                        <th>Site POC</th>
+                        <th>Total Expense</th>
+                        <th>Travelling From</th>
+                        <th>Departing Date</th>
+                        <th>Returning Date</th>
+                        <th>Traveller Name</th>
+
+
+                        @*<th class="text-center">Status</th>*@
+                        <th class="text-center">Actions</th>
+                        <th class="text-center d-none">Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+    @using (Html.BeginForm("travellist", "travel", FormMethod.Post, new { id = "form1" }))
+    {
+        <div id="mdlDecision" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header p-t-0">
+                        <h4 class="modal-title">Take Decision on Travel Request</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group m-0">
+                            @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+                            {
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.RadioButton("LastStatus", (int)TravelRequestStatusEnum.ApprovedByProjectManager, true, new { @id = "optAccept" }) Accept
+                                    </label>
+                                </div>
+                                <div class="form-check ml-3">
+                                    <label class="form-check-label">@Html.RadioButton("LastStatus", (int)TravelRequestStatusEnum.RejectedByProjectManager, new { @id = "optReject" }) Reject</label>
+                                </div>
+                            }
+                            else if (ViewBag.Role == (int)UserRoleEnum.Client1)
+                            {
+                                <div class="form-check">
+                                    <label class="form-check-label">@Html.RadioButton("LastStatus", (int)TravelRequestStatusEnum.ApprovedByClient1, true, new { @id = "optAccept" }) Accept</label>
+                                </div>
+                                <div class="form-check ml-3">
+                                    <label class="form-check-label">@Html.RadioButton("LastStatus", (int)TravelRequestStatusEnum.RejectedByClient1, new { @id = "optReject" }) Reject</label>
+                                </div>
+                            }
+                            else if (ViewBag.Role == (int)UserRoleEnum.Client2)
+                            {
+                                <div class="form-check">
+                                    <label class="form-check-label">@Html.RadioButton("LastStatus", (int)TravelRequestStatusEnum.ApprovedByClient2, true, new { @id = "optAccept" }) Accept</label>
+                                </div>
+                                <div class="form-check ml-3">
+                                    <label class="form-check-label">@Html.RadioButton("LastStatus", (int)TravelRequestStatusEnum.RejectedByClient2, new { @id = "optReject" }) Reject</label>
+                                </div>
+                            }
+
+                        </div>
+
+                        <div class="form-group m-0 setVisibility">
+                            @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+                            {
+                                <h6 class="top-bor">Choose Process</h6>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.RadioButton("IsProcedural", (int)ProcedureEnum.Procedural, true, new { @id = "optOrder" }) Proceed in Sequence <i class="input-helper"></i>
+
+                                    </label>
+
+                                </div>
+                                <div class="form-check ml-3">
+                                    <label class="form-check-label">
+                                        @Html.RadioButton("IsProcedural", (int)ProcedureEnum.DirectFinalStep, false, new { @id = "optOrder" }) Send to Final Approval <i class="input-helper"></i>
+                                    </label>
+                                </div>
+                            }
+
+                        </div>
+
+                        @*<div class="form-group m-0 setVisibility">
+                                @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+                                {
+                                    <h6 class="top-bor">Choose Process</h6>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                @Html.RadioButton("IsProcedural", (int)ProcedureEnum.Procedural, true, new { @id = "optOrder" }) Proceed in Sequence <i class="input-helper"></i>
+
+                                            </label>
+
+                                        </div>
+                                        <div class="form-check ml-3">
+                                            <label class="form-check-label">
+                                                @Html.RadioButton("IsProcedural", (int)ProcedureEnum.DirectFinalStep, false, new { @id = "optOrder" }) Send to Final Approval <i class="input-helper"></i>
+                                            </label>
+                                        </div>
+                                }
+                            </div>*@
+                        @*<div class="form-check">
+                                <label class="form-check-label">
+                                    <input checked="" class="form-check-input" id="optAccept" name="TravelDetailStatus" type="radio" value="0">
+                                    All
+                                    <i class="input-helper"></i>
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>*@
+
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Add Comments" name="Comments"></textarea>
+                        </div>
+                        @Html.Hidden("Id", "Id", new { @id = "hdnSubmitID" })
+                        @*<button type="submit" id="btnSubmit" class="btn btn-info mr-2">Submit</button>*@
+                        @Html.Hidden("laststepid", "laststepid", new { @id = "hdnlastStatus" })
+                        <input id="btnSubmit" type="submit" value="Submit" class="btn btn-info mr-2 js-loader" />
+                    </div>
+                    @*<div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>*@
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>
+
+
+<div class="main-validation" style="display:none"> <p class="show-msg"></p> <i class="mdi mdi-close"></i> </div>
+
+<script src="~/Scripts/managetraveluser.js"></script>
+<script src="~/Scripts/Travel.js"></script>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        showErrorMessage("@ViewBag.Message", 4000, 'successMessage');
+    </script>
+}
+@if (ViewBag.Message1 != null)
+{
+    <script type="text/javascript">
+        showErrorMessage("@ViewBag.Message1", 4000, 'errorMessage');
+    </script>
+}
+<script>
+
+    $('[name="LastStatus"]').on('change', function () {
+        if ($('#optAccept:checked').val()) {
+            $(".setVisibility").show();
+        }
+        else {
+            $(".setVisibility").hide();
+        }
+    });
+
+    function UpdateHiddenField(id, LastStatusstep) {
+        $("#hdnSubmitID").val(id);
+        $("#hdnlastStatus").val(LastStatusstep);
+    }
+
+    $(function () {
+        $(".table-responsive .bottom").insertAfter(".table-responsive");
+    });
+
+</script>
+
+<script src="~/Scripts/Travel.js"></script>

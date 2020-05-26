@@ -1,0 +1,333 @@
+﻿@model TravelDataRecorder.Model.ViewModel.DashboardViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <script>
+        //*** Page Load ***///traveldatarecorder/projectmanager/travellist
+        $(function () {
+            window.onload = function (e) {
+                calculate_time_zone();
+                var offset = $('#hdnUserTimezoneOffSet').val();
+                $.ajax({
+
+                    url: '@Url.Action("travellist", "projectmanager")'+'?UserTimezoneOffSet='+offset, success: function (result) {
+                        display_events(result);
+                    }
+                });
+            }
+
+
+            function display_events(result) {
+                $('#calendar').fullCalendar({
+                    nextDayThreshold:'00:00:00',
+                    editable: true,
+                    aspectRatio: 2,
+                    displayEventTime: false,
+                    //droppable: false,
+                    editable: false,
+                    eventLimit: true,
+                    views: {
+                        month: {
+                            eventLimit: 2 // adjust to 6 only for timeGridWeek/timeGridDay
+                        }
+                    },
+                  
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        //right: 'month',
+                    },
+                    defaultView: 'month',
+                    events: result,
+                    firstDay: 1,
+                    selectable: true,
+                    eventRender: function (event, element, view) {
+                        $(element).html("<b>" + event.title.split("\n")[0] + "</b>");
+                        $(element).append("</br>" + event.title.split("\n")[1]);
+                        $(element).append("</br>" + event.title.split("\n")[2]);
+                    },
+
+                });
+            }
+        });
+    </script>
+</head>
+
+<div class="row d-flex">
+    <div class="col-xl-5 flex-column">
+        <div class="card h-100">
+            <div class="card-body chart-body TravelRequests">
+                <h4 class="card-title">Travel Request</h4>
+                @if (Model.TotalTravel > 0)
+                {
+                    <canvas id="myChart" width="100%" height="100%" class="canvas-chart"></canvas>
+                    <ul class="calendar-legend text-right">
+                        <li><i class="blue-circle blue"></i> Submitted</li>
+                        <li><i class="red-circle red-cl"></i> Rejected</li>
+                        <li><i class="yellow-circle yellow"></i> In Progress</li>
+                        <li><i class="green-circle green"></i> Approved</li>
+                        <li><i class="dark-blue-circle dark-blue"></i> Re-Submitted</li>
+                    </ul>
+                }
+                else
+                {
+                    <img src="~/assets/images/NoRecordFound.png" />
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-7 flex-column dashboard-cards">
+        <div class="row h-100">
+            <div id="UserList" class="col-md-6 stretch-card grid-margin">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                    <div class="card-body">
+
+                        <h4 class="font-weight-normal mb-3">
+                            Total Users
+                            <i class="mdi mdi-account-multiple float-right"></i>
+                        </h4>
+                        <h2>@Model.TotalUser</h2>
+                        @*<h6 class="card-text">Increased by 60%</h6>*@
+                    </div>
+                </div>
+            </div>
+            <div id="TravellerUsers" class="col-md-6 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+
+                        <h4 class="font-weight-normal mb-3">
+                            Total Traveller Users
+                            <i class="mdi mdi-airplane-takeoff float-right"></i>
+                        </h4>
+                        <h2>@Model.Traveller</h2>
+                        @*<h6 class="card-text">Decreased by 10%</h6>*@
+                    </div>
+                </div>
+            </div>
+            <div id="ProjectOfficer" class="col-md-6 stretch-card ">
+                <div class="card bg-gradient-primary card-img-holder text-white">
+                    <div class="card-body">
+
+                        <h4 class="font-weight-normal mb-3">
+                            Project Officer/Director
+                            <i class="mdi mdi-account float-right"></i>
+                        </h4>
+                        <h2>@Model.ProjectOfficer</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                    </div>
+                </div>
+            </div>
+            <div id="ChiefEnd" class="col-md-6 stretch-card">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                    <div class="card-body">
+
+                        <h4 class="font-weight-normal mb-3">
+                            Chief End User Training Support
+                            <i class="mdi mdi-account-location float-right"></i>
+                        </h4>
+                        <h2>@Model.ChiefEndUser</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="position-relative mt-5">
+    <ul class="calendar-legend text-right">
+        <li><i class="blue-circle blue"></i> Submitted</li>
+        <li><i class="red-circle red-cl"></i> Rejected</li>
+        <li><i class="yellow-circle yellow"></i> In Progress</li>
+        <li><i class="green-circle green"></i> Approved</li>
+        <li><i class="dark-blue"></i> Re-Submitted</li>
+
+    </ul>
+    <div class="schedule-calendar" id="calendar">
+
+    </div>
+</div>
+
+<script src="~/assets/js/chartjs/chart.js"></script>
+<script src="~/assets/js/chartjs/Chart.PieceLabel.js"></script>
+
+<script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    data=[@Model.Submitted, @Model.Reject, @Model.InProgress, @Model.Approved,@Model.ReSubmitted];
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ["Submitted", "Rejected", "In Progress", "Approved","Re-Submitted"],
+            datasets: [{
+                backgroundColor: [
+                  "#449fe6",
+                  "#fe7296",
+                  "#ead41e",
+                  "#0aceaf",
+                  "#6b73e7"
+                ],
+                data: data
+            }]
+        },
+        options: {
+            responsive: true,
+            display: true,
+            pieceLabel: {
+                render: 'value',
+                fontColor: '#ffffff',
+                fontSize: 25,
+                fontStyle: 'bold',
+            },
+            legend: {
+                position: 'bottom',
+                display: false,
+            },
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            tooltips: {
+                backgroundColor: "#0a1536",
+                titleFontSize: 18,
+                bodyFontSize: 18
+            },
+            'onClick':function (evt, item) {
+                if(typeof(item[0]._index)!=undefined){
+                    $("#mainLoader").show();
+                    window.localStorage.removeItem("dashboardChart");
+                    localStorage.setItem("dashboardChart", JSON.stringify(item[0]._index));
+                    localStorage.setItem("dashboardChartDateFrom", '@Model.FromDate');
+                    localStorage.setItem("dashboardChartDateTo", '@Model.ToDate');
+                    localStorage.setItem("dashboardChartCurrentRoleId", '@ViewBag.Role');
+                    window.location.replace('@Url.Action("travellist", "travel")');
+                }
+            }
+        },
+
+    });
+</script>
+@*<script>
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ["Female", "Male"],
+                datasets: [{
+                    data: [10, 35],
+                    backgroundColor: ["#0fa0e3", "#ff3549"]
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: false,
+                    position: "top",
+                    fontStyle: "bold",
+                    fontSize: 0,
+                    fullWidth: false,
+                    padding: 0
+                },
+                legend: {
+                    display: false,
+                    position: "top",
+                    fullWidth: false,
+                    labels: {
+                        display: false,
+                        usePointStyle: true,
+                        fontSize: 15,
+                        fontStyle: "bold"
+                    }
+
+                }
+            }
+        });
+    </script>*@
+<script>
+    $(document).ready(function () {
+        // var urlUser = '/TravelDataRecorder/admin/userlist';
+        localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+        localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+        var urlUser = '@Url.Action("userlist", "admin")';
+
+        if(window.location.origin!="http://localhost")
+        {
+            var urlUser = '/admin/userlist';
+        }
+        $('#UserList').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.TotalUser!=0)
+            {
+                sessionStorage.Criteria = "all";
+                $("#mainLoader").show();
+                window.location.href =  urlUser;
+            }
+        });
+        $('#TravellerUsers').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.Traveller!=0)
+            {
+                sessionStorage.Criteria = "User";
+                $("#mainLoader").show();
+                window.location.href =  urlUser;
+            }
+        });
+        $('#ProjectOfficer').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.ProjectOfficer!=0)
+            {
+                sessionStorage.Criteria = "Client1";
+                $("#mainLoader").show();
+                window.location.href =  urlUser;
+            }
+        });
+        $('#ChiefEnd').click(function () {
+            localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+            localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+            if(@Model.ChiefEndUser!=0)
+            {
+                sessionStorage.Criteria = "Client2";
+                $("#mainLoader").show();
+                window.location.href = urlUser;
+            }
+        });
+
+
+        //var canvas = document.getElementById("myChart");
+        //var ctx = canvas.getContext("2d");
+        //var myNewChart = new Chart(ctx, {
+        //    type: 'doughnut',
+        //    data: data
+        //});
+
+        //canvas.onclick = function(evt) {
+        //    var activePoints = myNewChart.getElementsAtEvent(evt);
+        //    if (activePoints[0]) {
+        //        var chartData = activePoints[0]['_chart'].config.data;
+        //        var idx = activePoints[0]['_index'];
+
+        //        var label = chartData.labels[idx];
+        //        var value = chartData.datasets[0].data[idx];
+
+        //        var url = "http://example.com/?label=" + label + "&value=" + value;
+        //        console.log(url);
+        //        alert(url);
+        //    }
+        //};
+    });
+</script>
+<script src="~/Scripts/Travel.js"></script>
+@section scripts {
+
+    @Scripts.Render("~/bundles/fullCalendarjs")
+    @Styles.Render("~/Content/fullCalendarcss")
+
+}

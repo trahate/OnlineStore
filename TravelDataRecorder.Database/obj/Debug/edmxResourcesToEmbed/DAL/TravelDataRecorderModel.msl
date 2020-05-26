@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TravelDataRecoderModelStoreContainer" CdmEntityContainer="TravelDataRecoderEntities">
+    <EntitySetMapping Name="TravelCities">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelCity">
+        <MappingFragment StoreEntitySet="TravelCity">
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelCountries">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelCountry">
+        <MappingFragment StoreEntitySet="TravelCountry">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelEmailExceptions">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelEmailException">
+        <MappingFragment StoreEntitySet="TravelEmailException">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="TravelId" ColumnName="TravelId" />
+          <ScalarProperty Name="EmailFrom" ColumnName="EmailFrom" />
+          <ScalarProperty Name="EmailTo" ColumnName="EmailTo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelErrorLogs">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelErrorLog">
+        <MappingFragment StoreEntitySet="TravelErrorLog">
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="TravelId" ColumnName="TravelId" />
+          <ScalarProperty Name="Error" ColumnName="Error" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelPlaceDetails">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelPlaceDetail">
+        <MappingFragment StoreEntitySet="TravelPlaceDetails">
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TravelId" ColumnName="TravelId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelRoles">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelRole">
+        <MappingFragment StoreEntitySet="TravelRole">
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelStates">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelState">
+        <MappingFragment StoreEntitySet="TravelState">
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelStatusMasters">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelStatusMaster">
+        <MappingFragment StoreEntitySet="TravelStatusMaster">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelUsers">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelUser">
+        <MappingFragment StoreEntitySet="TravelUser">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ProfileImage" ColumnName="ProfileImage" />
+          <ScalarProperty Name="GeneratePasswordKey" ColumnName="GeneratePasswordKey" />
+          <ScalarProperty Name="OTP" ColumnName="OTP" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelUserRoleMappings">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelUserRoleMapping">
+        <MappingFragment StoreEntitySet="TravelUserRoleMapping">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelNotifications">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelNotification">
+        <MappingFragment StoreEntitySet="TravelNotification">
+          <ScalarProperty Name="ProcessedBy" ColumnName="ProcessedBy" />
+          <ScalarProperty Name="TravelId" ColumnName="TravelId" />
+          <ScalarProperty Name="NotificationDate" ColumnName="NotificationDate" />
+          <ScalarProperty Name="StepNotificationId" ColumnName="StepNotificationId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelDetailTrails">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelDetailTrail">
+        <MappingFragment StoreEntitySet="TravelDetailTrail">
+          <ScalarProperty Name="NextActionRole" ColumnName="NextActionRole" />
+          <ScalarProperty Name="StepNotes" ColumnName="StepNotes" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ProcessedBy" ColumnName="ProcessedBy" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="TravelId" ColumnName="TravelId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TravelDetails">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.TravelDetail">
+        <MappingFragment StoreEntitySet="TravelDetail">
+          <ScalarProperty Name="IsProcedural" ColumnName="IsProcedural" />
+          <ScalarProperty Name="LastStatus" ColumnName="LastStatus" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Cost_ODCBudgetStatus" ColumnName="Cost_ODCBudgetStatus" />
+          <ScalarProperty Name="Cost_TotalExpense" ColumnName="Cost_TotalExpense" />
+          <ScalarProperty Name="Cost_Miscellaneous" ColumnName="Cost_Miscellaneous" />
+          <ScalarProperty Name="Cost_Hotel" ColumnName="Cost_Hotel" />
+          <ScalarProperty Name="Cost_RentalCar" ColumnName="Cost_RentalCar" />
+          <ScalarProperty Name="Cost_RegistrationFee" ColumnName="Cost_RegistrationFee" />
+          <ScalarProperty Name="Cost_TotalPerDiem" ColumnName="Cost_TotalPerDiem" />
+          <ScalarProperty Name="Cost_PerDiemRate" ColumnName="Cost_PerDiemRate" />
+          <ScalarProperty Name="Cost_CostOfAirFare" ColumnName="Cost_CostOfAirFare" />
+          <ScalarProperty Name="Detail_TravelSitePOC" ColumnName="Detail_TravelSitePOC" />
+          <ScalarProperty Name="Detail_TravelPurpose" ColumnName="Detail_TravelPurpose" />
+          <ScalarProperty Name="Detail_TotalDays" ColumnName="Detail_TotalDays" />
+          <ScalarProperty Name="Detail_ReturningDate" ColumnName="Detail_ReturningDate" />
+          <ScalarProperty Name="Detail_DepartingDate" ColumnName="Detail_DepartingDate" />
+          <ScalarProperty Name="Detail_ReturningToState" ColumnName="Detail_ReturningToState" />
+          <ScalarProperty Name="Detail_ReturningToCity" ColumnName="Detail_ReturningToCity" />
+          <ScalarProperty Name="Detail_TravelingToState" ColumnName="Detail_TravelingToState" />
+          <ScalarProperty Name="Detail_TravelingToCity" ColumnName="Detail_TravelingToCity" />
+          <ScalarProperty Name="Detail_TravelingFromState" ColumnName="Detail_TravelingFromState" />
+          <ScalarProperty Name="Detail_TravelingFromCity" ColumnName="Detail_TravelingFromCity" />
+          <ScalarProperty Name="Detail_AirportDepartingFrom" ColumnName="Detail_AirportDepartingFrom" />
+          <ScalarProperty Name="Summary_TravelerName" ColumnName="Summary_TravelerName" />
+          <ScalarProperty Name="Summary_SubmittedDate" ColumnName="Summary_SubmittedDate" />
+          <ScalarProperty Name="Summary_CorName" ColumnName="Summary_CorName" />
+          <ScalarProperty Name="Summary_TaskOrder" ColumnName="Summary_TaskOrder" />
+          <ScalarProperty Name="Summary_ContractNumber" ColumnName="Summary_ContractNumber" />
+          <ScalarProperty Name="Summary_PrimeContractor" ColumnName="Summary_PrimeContractor" />
+          <ScalarProperty Name="Summary_ProjectName" ColumnName="Summary_ProjectName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailExceptions">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.EmailException">
+        <MappingFragment StoreEntitySet="EmailException">
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="ErrorInnerExceptionMessage" ColumnName="ErrorInnerExceptionMessage" />
+          <ScalarProperty Name="ErrorInnerException" ColumnName="ErrorInnerException" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+          <ScalarProperty Name="MailMessage" ColumnName="MailMessage" />
+          <ScalarProperty Name="MailSubject" ColumnName="MailSubject" />
+          <ScalarProperty Name="MailCC" ColumnName="MailCC" />
+          <ScalarProperty Name="MailTo" ColumnName="MailTo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ErrorLogs">
+      <EntityTypeMapping TypeName="TravelDataRecoderModel.ErrorLog">
+        <MappingFragment StoreEntitySet="ErrorLog">
+          <ScalarProperty Name="ErrorTimeStamp" ColumnName="ErrorTimeStamp" />
+          <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+          <ScalarProperty Name="ErrorInnerExceptionMessage" ColumnName="ErrorInnerExceptionMessage" />
+          <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+          <ScalarProperty Name="ErrorInnerException" ColumnName="ErrorInnerException" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,296 @@
+﻿@using TravelDataRecorder.Common.TravelDataEnum
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/DataTablecss")
+    @{
+        var baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+    }
+    <base href="@baseUrl">
+
+</head>
+<body>
+
+    <div class="container-scroller">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+
+                <a class="navbar-brand brand-logo text-info" href="@Url.Action("dashboard","dashboard")"><img src="~/assets/images/travel-logo.png" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <div class="search-field d-none d-md-block">
+                    <form class="d-flex align-items-center h-100" action="#">
+                        <div class="input-group">
+                            @*<div class="input-group-prepend bg-transparent">
+                                    <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                                </div>
+                                <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">*@
+                        </div>
+                    </form>
+                </div>
+                <ul class="navbar-nav navbar-nav-right">
+
+                    @{
+                        if (ViewBag.Role != null)
+                        {
+                            Html.RenderAction("Notification", "User");
+                        }
+                    }
+
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle ml-0" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <div class="nav-profile-img">
+                                @*<img src="~/assets/images/faces/face1.jpg" alt="image">*@
+                                @if (ViewBag.Role != null)
+                                {
+                                    Html.RenderAction("ProfilePic", "User");
+                                }
+                                <span class="availability-status online"></span>
+                            </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black">
+                                    @if (ViewBag.RoleName == "ProjectManager")
+                                    {
+                                        <span>Program Manager</span>;
+                                    }
+                                    else
+                                    {
+                                        @ViewBag.RoleName;
+                                    }
+                                </p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="@Url.Action("profile","user")">
+                                <i class="mdi mdi-account mr-2 text-primary"></i>
+                                View Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="@Url.Action("changepassword","user")">
+                                <i class="mdi mdi-account-key mr-2 text-primary"></i>
+                                Change Password
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="@Url.Action("logout","home")">
+                                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                Sign out
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:../../partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+
+                        <a class="nav-link js-loader" onclick="setCriteria()" href='@Url.Action("dashboard",new {controller="dashboard" })'>
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                            @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                        </a>
+                    </li>
+                    @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link js-loader" onclick="setCriteria()" href='@Url.Action("adduser", new { controller = "admin" } )'>
+                                <span class="menu-title">Add User</span>
+                                <i class="mdi mdi-account menu-icon"></i>
+                                @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-loader" onclick="setCriteria()" href='@Url.Action("userlist", new { controller = "admin" })'>
+                                <span class="menu-title">Manage Users</span>
+                                @*<i class="mdi mdi-database-plus menu-icon"></i>*@
+                                <i class="mdi mdi-contacts menu-icon"></i>
+                                @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link js-loader" onclick="setCriteria()" href='@Url.Action("travellist", new { controller = "travel" })'>
+                                <span class="menu-title">Manage Travel Request</span>
+                                <i class="mdi mdi-file-document menu-icon"></i>
+                                @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-loader" href='@Url.Action("index", new { controller = "report" })'>
+                                <span class="menu-title">Report</span>
+                                <i class="mdi mdi-chart-bar menu-icon"></i>
+                                @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                            </a>
+                        </li>
+                    }
+                    else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link js-loader" onclick="setCriteria()" href='@Url.Action("travellist", new { controller = "travel" })'>
+                                <span class="menu-title">Manage Travel Request</span>
+                                <i class="mdi mdi-file-document menu-icon"></i>
+                                @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                            </a>
+                        </li>
+                    }
+                    else if (ViewBag.Role == (int)UserRoleEnum.User)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link js-loader" onclick="setCriteria()" href='@Url.Action("addtravelform", new { controller = "travel" })'>
+                                <span class="menu-title">Add Travel Data</span>
+                                <i class="mdi mdi-database-plus menu-icon"></i>
+
+                                @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-loader" onclick="setCriteria()" href='@Url.Action("travellist", new { controller = "travel" })'>
+                                <span class="menu-title">Manage Travel Request</span>
+                                <i class="mdi mdi-file-document menu-icon"></i>
+                                @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                            </a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link js-loader" onclick="setStatus('0',false)" href="@Url.Action("notificationlist", new { controller = "user" })">
+                            <span class="menu-title">Notification List</span>
+                            <i class="mdi mdi-bell menu-icon"></i>
+                            @*<i class="mdi mdi-format-list-bulleted menu-icon"></i>*@
+                        </a>
+                    </li>
+                </ul>
+
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+
+                <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2019  All rights reserved.</span>
+                        @*<span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with</span>*@
+                    </div>
+                </footer>
+            </div>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+        <!-- Page loader -->
+        <div class="loader-main" id="mainLoader">
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
+        <!-- Page loader -->
+
+    </div>
+    <input type="hidden" id="hdnUserTimezoneOffSet" name="hdnUserTimezoneOffSet" />
+    <script>
+        
+
+
+        function setStatus(status, isactive) {
+            sessionStorage.status = status;
+            sessionStorage.isactive = isactive;
+        }
+        function setCriteria() {
+            sessionStorage.Criteria = "";
+            localStorage.removeItem("dashboardChart");
+            localStorage.removeItem("dashboardChartDateFrom");
+            localStorage.removeItem("dashboardChartDateTo");
+            localStorage.removeItem("dashboardChartCurrentRoleId");
+        }
+        $(document).ready(function () {
+            $(".js-resetStorage").on('click', function () {
+
+                sessionStorage.Criteria = "";
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        var minutes;
+        function calculate_time_zone() {
+            var rightNow = new Date();
+            var jan1 = new Date(rightNow.getFullYear(), 0, 1, 0, 0, 0, 0);  // jan 1st
+            var june1 = new Date(rightNow.getFullYear(), 6, 1, 0, 0, 0, 0); // june 1st
+            var temp = jan1.toGMTString();
+            var jan2 = new Date(temp.substring(0, temp.lastIndexOf(" ") - 1));
+            temp = june1.toGMTString();
+            var june2 = new Date(temp.substring(0, temp.lastIndexOf(" ") - 1));
+            var std_time_offset = (jan1 - jan2) / (1000 * 60 * 60);
+            var daylight_time_offset = (june1 - june2) / (1000 * 60 * 60);
+            var dst;
+            if (std_time_offset == daylight_time_offset) {
+                dst = "0"; // daylight savings time is NOT observed
+            } else {
+                //// positive is southern, negative is northern hemisphere
+                //var hemisphere = std_time_offset - daylight_time_offset;
+                //if (hemisphere >= 0)
+                //    std_time_offset = daylight_time_offset;
+                std_time_offset = daylight_time_offset;
+                dst = "1"; // daylight savings time is observed
+            }
+            var i;
+            // Here set the value of hidden field to the ClientTimeZone.
+            minutes = convert(std_time_offset);
+            TimeField = document.getElementById("hdnUserTimezoneOffSet");
+            TimeField.value = minutes;
+            //alert('your time zone is ' + minutes);
+        }
+
+        // This function is to convert the timezoneoffset to Standard format
+        function convert(value) {
+            var hours = parseInt(value);
+            value -= parseInt(value);
+            value *= 60;
+            var mins = parseInt(value);
+            value -= parseInt(value);
+            value *= 60;
+            var secs = parseInt(value);
+            var display_hours = hours;
+            // handle GMT case (00:00)
+            if (hours == 0) {
+                display_hours = "00";
+            } else if (hours > 0) {
+                // add a plus sign and perhaps an extra 0
+                display_hours = (hours < 10) ? "+0" + hours : "+" + hours;
+            } else {
+                // add an extra 0 if needed
+                display_hours = (hours > -10) ? "-0" + Math.abs(hours) : hours;
+            }
+            mins = (mins < 10) ? "0" + mins : mins;
+            return display_hours + ":" + mins;
+        }
+
+        //Adding the funtion to onload event of document object
+
+
+
+    </script>
+    @Html.Hidden("criteria", (string)ViewBag.Criteria)
+    @Html.Hidden("RoleName", (string)ViewBag.RoleName)
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datetimepickerjs")
+    @Styles.Render("~/Content/datetimepickercss")
+    @Scripts.Render("~/bundles/DataTablejs")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model TravelDataRecorder.Model.ViewModel.DashboardViewModel
+@using TravelDataRecorder.Common.TravelDataEnum
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="page-header">
+
+    <div class="col-4">
+        <h3 class="page-title">
+            Dashboard
+        </h3>
+    </div>
+    <div class="col-4 align-content-end date-srch">
+        @{
+            Html.RenderPartial("_SearchView");
+        }
+    </div>
+</div>
+
+
+@{
+
+    if (ViewBag.Role == (int)UserRoleEnum.User)
+    {
+        Html.RenderPartial("_UserDashboard", Model);
+    }
+    else if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+    {
+        Html.RenderPartial("_ProgramManagerDashboard", Model);
+    }
+    else if (ViewBag.Role == (int)UserRoleEnum.Client1)
+    {
+
+        Html.RenderPartial("_ProjectOfficerDashboard", Model);
+    }
+    else if (ViewBag.Role == (int)UserRoleEnum.Client2)
+    {
+
+        Html.RenderPartial("_ChiefEndUserDashboard", Model);
+    }
+}
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/fullCalendarjs")
+    @Styles.Render("~/Content/fullCalendarcss")
+
+}

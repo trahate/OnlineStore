@@ -1,0 +1,173 @@
+﻿@model IEnumerable<TravelDataRecorder.Model.UserModel>
+@using TravelDataRecorder.Common.TravelDataEnum
+@{
+    ViewBag.Title = "Manage Users";
+}
+
+@*@Scripts.Render("~/bundles/bootstrap")*@
+
+@using (Html.BeginForm("userlist", "admin", FormMethod.Get, new { id = "form1" }))
+{  <div class="page-header m-b-15">
+        <h3 class="page-title"> Manage Users</h3>
+        @*<h4 class="page-title">@ViewBag.Users</h4>*@
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Manage Users</li>
+                }
+                else if (ViewBag.Role == (int)UserRoleEnum.User)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Manage Users</li>
+                }
+                else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) / Manage Users</li>
+                }
+            </ol>
+
+        </nav>
+    </div>
+    @*<div class="form-group ">
+        @Html.ActionLink("Add User", "adduser", new { controller = "admin" }, new { @class = "btn btn-info title-btn " })
+           </div>*@
+
+
+    <div class="m-b-15 row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6 sel-search text-right">
+            <button type="button" class="btn btn-dark mr-2 btn-sm button-premier" onclick="location.href='@Url.Action("adduser", "admin")'">Add User</button>
+            @*<button type="button" class="btn btn-info mr-2 btn-sm" onclick="location.href='@Url.Action("dashboard", "dashboard")'">Back</button>*@
+            @if (ViewBag.LastUrl != null)
+                {
+                <a role="button" class="btn btn-info mr-2 btn-sm secondary-button" href="@ViewBag.LastUrl">Back</a>
+            }
+        </div>
+    </div>
+
+    <form class="forms-sample">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="m-b-20 row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="search-box-new">
+                                    @Html.TextBox("search", null, new { @class = "form-control", maxlength = 50, @placeholder = "Search" })
+                                    <i style="display:none" id="fafatimes" class="mdi mdi-close"></i>
+                                    <i id="faSearch" class="mdi mdi-magnify"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 sel-search text-right">
+                        @Html.DropDownList("userslist", null, "All", new { @class = "select2 form-control " })
+                    </div>
+                </div>
+
+
+                @*<a role="button" id="backbtn" href="@ViewBag.lastUrl" class="btn btn-danger">Back</a>*@
+
+                <div class="table-responsive">
+                    @*<table id="jqueryDataTable" class="display table table-striped table-bordered" border="0">*@
+                    <table id="jqueryDataTable" class="display table responsive no-wrap ManageUser" width="100%">
+                        <thead>
+                            <tr>
+                                <th> First Name</th>
+                                <th> Last Name</th>
+                                <th>Email</th>
+                                <th>Contact Number</th>
+                                <th>Address</th>
+                                <th>Role</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+@*</div>
+    </div>*@
+<div class="main-validation" style="display:none"> <p class="show-msg"></p> <i class="mdi mdi-close"></i> </div>
+<div class="modal delete-modal confirm-modal" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" onclick="CancelModel()" class="close" data-dismiss="modal"><i class="mdi mdi-close"></i></button>
+            <!-- Modal body -->
+            <div class="modal-body text-center">
+                <h1 class="text-center"><i class="mdi mdi-alert-outline"></i> Confirmation</h1>
+                <p>Are you sure you want to delete these record? This procees cannot be undone.</p>
+                <button type="button" id="CancelModal" onclick="CancelModel()" data-dismiss="modal" class="btn fade-btn">Cancel</button>
+                <a role="button" id="DeleteConfirm" onclick="CancelModel()" href="" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal delete-modal  confirm success-modal" id="confirmdelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h1 class="text-center"><i class="mdi mdi-check"></i> Success</h1>
+                <p>User has been deleted successfully </p>
+                <button type="button" onclick="CancelModel()" data-dismiss="modal" id="afterdelete" class="btn btn-success">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/manageuser.js" type="text/javascript"></script>
+<script src="~/Scripts/Travel.js"></script>
+@{
+    if (ViewBag.Message != null)
+    {
+        if (ViewBag.Message == "Deleted")
+        {
+            <script>
+                $('#confirmdelete').show();
+            </script>
+        }
+        else if (ViewBag.IsAdded != null && ViewBag.IsAdded)
+        {
+            <script>
+                showErrorMessage("@ViewBag.Message", 4000, 'successMessage');
+            </script>
+        }
+        else
+        {
+            <script>
+                showErrorMessage("@ViewBag.Message", 4000);
+            </script>
+        }
+    }
+}
+
+<script>
+    // var userId;
+    function DeleteConferm(id) {
+        $('#deleteModal').show();
+        //userId = id;
+        $('#DeleteConfirm').attr('href', "Admin/DeleteUser/" + id);
+    }
+    function CancelModel() {
+        //  userId = "";
+        $('#deleteModal').hide();
+        $('#confirmdelete').hide();
+    }
+
+
+</script>

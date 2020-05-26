@@ -1,0 +1,132 @@
+﻿@model TravelDataRecorder.Model.ViewModel.DashboardViewModel
+
+<div class="row d-flex">
+    <div class="col-md-12 flex-column User dashboard-cards">
+        <div class="row">
+            <div id="TotalTravel" class="col-md-4 col-lg-4 col-xl-3 stretch-card mb-4">
+                <div class="card bg-gradient-total-travel-request card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-message-processing float-right"></i>
+                        <h2>@Model.TotalTravel</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                        <h4 class="font-weight-normal mb-3">Total Travel Request </h4>
+                    </div>
+                </div>
+            </div>
+            <div id="approved" class="col-md-4 col-lg-4 col-xl-3 stretch-card mb-4">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-account-check float-right"></i>
+                        <h2>@Model.Approved</h2>
+                        @*<h6 class="card-text">Increased by 60%</h6>*@
+                        <h4 class="font-weight-normal">Approved Travel Request</h4>
+                    </div>
+                </div>
+            </div>
+            <div id="progress" class="col-md-4 col-lg-4 col-xl-3 stretch-card mb-4">
+                <div class="card bg-gradient-warning card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-account-settings float-right"></i>
+                        <h2>@Model.InProgress</h2>
+                        @*<h6 class="card-text">Decreased by 10%</h6>*@
+                        <h4 class="font-weight-normal mb-3">In Progress Travel Request</h4>
+                    </div>
+                </div>
+            </div>
+            <div id="reject" class="col-md-4 col-lg-4 col-xl-3 stretch-card mb-4">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-account-remove float-right"></i>
+                        <h2>@Model.Reject</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                        <h4 class="font-weight-normal mb-3">Rejected Travel Request</h4>
+                    </div>
+
+                </div>
+            </div>
+            <div id="Submitted" class="col-md-4 col-lg-4 col-xl-3 stretch-card mb-4">
+                <div class="card  bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi-briefcase-check float-right"></i>
+                        <h2>@Model.Submitted</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                        <h4 class="font-weight-normal mb-3">Submitted Travel Request</h4>
+                    </div>
+
+                </div>
+            </div>
+            <div id="Resubmited" class="col-md-4 col-lg-4 col-xl-3 stretch-card mb-4">
+                <div class="card bg-gradient-Re-Submitted card-img-holder text-white">
+                    <div class="card-body">
+                        <i class="mdi mdi mdi-rotate-3d float-right"></i>
+                        <h2>@Model.ReSubmitted</h2>
+                        @*<h6 class="card-text">Increased by 5%</h6>*@
+                        <h4 class="font-weight-normal mb-3">Re-submitted Travel Request </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        localStorage.setItem("dashboardChartDateFrom",'@Model.FromDate');
+        localStorage.setItem("dashboardChartDateTo",'@Model.ToDate');
+        //  var urlUser = '/TravelDataRecorder/travel/travellist';
+        var urlUser = '@Url.Action("travellist", "travel")';
+        if(window.location.origin!="http://localhost")
+        {
+            var urlUser = '/travel/travellist';
+        }
+        $('#approved').click(function () {
+            if(@Model.Approved!=0)
+            {
+                $("#mainLoader").show();
+                sessionStorage.Criteria = "Approved";
+                window.location.href =  urlUser;
+            }
+        });
+        $('#progress').click(function () {
+            if(@Model.InProgress!=0)
+            {
+                $("#mainLoader").show();
+                sessionStorage.Criteria = "InProgress";
+                window.location.href =  urlUser;
+            }
+        });
+        $('#reject').click(function () {
+            if(@Model.Reject!=0)
+            {
+                $("#mainLoader").show();
+                sessionStorage.Criteria = "Reject";
+                window.location.href =  urlUser;
+            }
+        });
+        $('#Submitted').click(function () {
+            if(@Model.Submitted!=0)
+            {
+                $("#mainLoader").show();
+                sessionStorage.Criteria = "Submitted";
+                window.location.href = urlUser;
+            }
+        });
+        $('#TotalTravel').click(function () {
+            if(@Model.TotalTravel!=0)
+            {
+                $("#mainLoader").show();
+                sessionStorage.Criteria = "TotalTravel";
+                window.location.href = urlUser;
+            }
+        });
+        $('#Resubmited').click(function () {
+            if(@Model.ReSubmitted!=0)
+            {
+                $("#mainLoader").show();
+                sessionStorage.Criteria = "ReSubmitted";
+                window.location.href = urlUser;
+            }
+        });
+    });
+
+</script>

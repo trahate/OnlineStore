@@ -1,0 +1,377 @@
+﻿@model TravelDataRecorder.Model.TravelDetailModel
+@using TravelDataRecorder.Common.TravelDataEnum
+@using TravelDataRecorder.Common.TravelDataEnum.Helper
+<div class="page-header m-b-15">
+    <h3 class="page-title">
+       Travel Request Progress
+    </h3>
+    <nav aria-label="breadcrumb">
+
+        <ol class="breadcrumb">
+            @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) /  Travel Request Progress</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.User)
+            {
+                <li class="breadcrumb-item">@Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) /  Travel Request Progress</li>
+            }
+            else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+            {
+                <li class="breadcrumb-item"> @Html.ActionLink("Home ", "dashboard", new { controller = "dashboard" }) /  Travel Request Progress</li>
+            }
+        </ol>
+    </nav>
+</div>
+<ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
+    @{
+       
+        int stepCount = 0;
+        int displayOrder = 0;
+        string activeClass = "active";
+        string historyAvailable = "true";
+    }
+    @foreach (var item in Model.TravelDetailTrails)
+    {
+        stepCount++;
+        if (Model.TravelDetailTrails.Count() == 0)
+        {
+            activeClass = "";
+            historyAvailable = "false";
+        }
+        else
+        {
+            historyAvailable = "true";
+        }
+        
+        displayOrder++;
+        <li id="stepParent_@stepCount" onclick="setCurrent(@stepCount)" role="presentation" class="@activeClass ">
+            <a id="stepChild_@stepCount" href="#step_@stepCount" hashistory="@historyAvailable" aria-controls="step_@stepCount" role="tab" data-toggle="tab">
+                <i>@displayOrder</i>
+                <p>@item.TravelStatusMaster.Name</p>
+            </a>
+        </li>
+    }
+</ul>
+<!-- end design process steps-->
+<!-- Tab panes -->
+<div class="tab-content">
+    @{
+        stepCount = 0;
+        activeClass = "active";
+    }
+    @foreach (var item in Model.TravelDetailTrails)
+    {
+        stepCount++;
+        if (Model.TravelDetailTrails.Count() == 0)
+        {
+            activeClass = "";
+        }
+        else
+        {
+            <div role="tabpanel" class="tab-pane @activeClass" id="step_@stepCount">
+
+   
+     
+                <div class="design-process-content intake-tab">
+                    <h3 class="semi-bold">@item.TravelStatusMaster.Name</h3>
+                   
+                        @if (item.StepNotes != null)
+                        {
+                        <div class="separator-line"> @(EnumHelper<StepNotesEnum>.GetDisplayValue((StepNotesEnum)item.StepNotes)) <i class="date black-txt">@item.Date</i></div>
+                    }
+                        @if (item.Comments != null)
+                        {
+                        <div class="row-history">
+                            <i class="mdi mdi-comment-processing m-l-10"></i>
+                           @item.Comments
+                            @*<div class="doc-row">
+
+                  <i class="mdi mdi-file-chart m-l-10"></i>  No Doc Column Available
+                </div>*@
+
+
+                        </div>
+                        }
+
+
+
+
+
+                </div>
+
+            </div>
+        }
+    }
+</div>
+
+
+
+<script>
+
+    function setCurrent(id)
+    {
+        for(var i=1;i<=@stepCount;i++)
+        {
+            $('#stepParent_'+i).removeClass('currently-selected');
+        }
+        $('#stepParent_'+id).addClass('currently-selected');
+    }
+    // script for tab steps
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        if ($(e.target).attr('hashistory') == 'true') {
+            var href = $(e.target).attr('href');
+            var $curr = $(".process-model  a[href='" + href + "']").parent();
+            // Please do not uncomment this as this will remove highlight from next steps
+            // $('.process-model li').removeClass();
+            $('.process-model li').removeClass('currently-selected');
+            $curr.addClass("currently-selected");
+
+            $curr.addClass("active");
+            $curr.prevAll().addClass("visited");
+        }
+    });
+
+
+    $(document).ready(function () {
+        var value = $('#src').val();
+        var criteriavalue = $('#criteria').val();
+        if (value == "intake") {
+            $('#intakeusermainbar').css({ background: '' });
+            //$('#intakeusersidebar').css({ background: '#27a9e3' });
+            //$('#intakeusersidebar').addClass('active');
+            //$('#ulinsideintakesidebar').addClass('in');
+            if (criteriavalue == "completed") {
+                $('#intakeusercompletedcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "pending") {
+                $('#intakeuserpendingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "rejected") {
+                $('#intakeuserrejectedcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "inprogress") {
+                $('#intakeuserinprogresscomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#intakeusernewcasecomplaintlist').addClass('active');
+            }
+            else {
+                //$('#intakeuserallcomplaintlist').addClass('active');
+            }
+        }
+        else if (value == "admin") {
+            $('#admincomplaintssidebar').css({ background: '#27a9e3' });
+            $('#admincomplaintssidebar').addClass('active');
+            $('#ulinsidesidebar').addClass('in');
+            if (criteriavalue == "pending") {
+                $('#pendingcomplaintssidebar').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#completedcomplaintssidebar').addClass('active');
+            }
+
+            else if (criteriavalue == "inprogress") {
+                $('#inprogresscomplaintssidebar').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#newcasecomplaintssidebar').addClass('active');
+            }
+            else {
+                $('#allcomplaintsidebar').addClass('active');
+            }
+
+        }
+        else if (value == "counsellor") {
+            $('#counselormainbar').css({ background: '' });
+            $('#counsellorsidebar').css({ background: '#27a9e3' });
+            $('#counsellorsidebar').addClass('active');
+            $('#ulinsidecounsellorsidebar').addClass('in');
+
+
+            if (criteriavalue == "pending") {
+                $('#counsellorpendingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#counsellorcompletedcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#counsellornewcasecompletelist').addClass('active');
+            }
+            else {
+                $('#counsellorallcomplaintlist').addClass('active');
+            }
+        }
+        else if (value == "informal") {
+            $('#informalmainbar').css({ background: '' });
+            $('#informalsidebar').css({ background: '#27a9e3' });
+            $('#informalsidebar').addClass('active');
+            $('#ulinsideinformalsidebar').addClass('in');
+            if (criteriavalue == "pending") {
+                $('#intakependingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#intakenewcasecomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#intakecompletedcomplaintlist').addClass('active');
+            }
+            else {
+                $('#intakeallcomplaintlist').addClass('active');
+            }
+        }
+        else if (value == "formal") {
+            $('#formalmainbar').css({ background: '' });
+            $('#formalsidebar').css({ background: '#27a9e3' });
+            $('#formalsidebar').addClass('active');
+            $('#ulinsideformalsidebar').addClass('in');
+            if (criteriavalue == "pending") {
+                $('#formalpendingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#formalnewcasecomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#formalcompletedcomplaintlist').addClass('active');
+            }
+            else {
+                $('#formalallcomplaintlist').addClass('active');
+            }
+        }
+        else if (value == "caseworker") {
+            $('#caseworkermainbar').css({ background: '' });
+            $('#caseworkersidebar').css({ background: '#27a9e3' });
+            $('#caseworkersidebar').addClass('active');
+            $('#ulinsidecaseworkersidebar').addClass('in');
+            if (criteriavalue == "pending") {
+                $('#caseworkerpendingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#caseworkernewcasecomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#caseworkercompletedcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "rejected") {
+                $('#caseworkerrejectedcomplaintlist').addClass('active');
+            }
+            else {
+                $('#caseworkerallcomplaintlist').addClass('active');
+            }
+        }
+        else if (value == "investigator") {
+            $('#Investigatormainbar').css({ background: '' });
+            $('#Investigatorsidebar').css({ background: '#27a9e3' });
+            $('#Investigatorsidebar').addClass('active');
+            $('#ulinsideInvestigatorsidebar').addClass('in');
+            if (criteriavalue == "pending") {
+                $('#Investigatorpendingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#Investigatornewcasecomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#Investigatorcompletedcomplaintlist').addClass('active');
+            }
+
+            else {
+                $('#Investigatorallcomplaintlist').addClass('active');
+            }
+        }
+        else if (value == "executive") {
+            $('#executivemainbar').css({ background: '' });
+            $('#executivesidebar').css({ background: '#27a9e3' });
+            $('#executivesidebar').addClass('active');
+            $('#ulinsideexecutivesidebar').addClass('in');
+
+            if (criteriavalue == "pending") {
+                $('#executivependingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#executivenewcasecomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#executivecompletedcomplaintlist').addClass('active');
+            }
+
+            else {
+                $('#executiveallcomplaintlist').addClass('active');
+            }
+        }
+        else if (value == "mediation") {
+            $('#mediationmainbar').css({ background: '' });
+            $('#mediationsidebar').css({ background: '#27a9e3' });
+            $('#mediationsidebar').addClass('active');
+            $('#ulinsidemediationsidebar').addClass('in');
+            if (criteriavalue == "pending") {
+                $('#mediationpendingcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "newcase") {
+                $('#mediationnewcasecomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "completed") {
+                $('#mediationcompletedcomplaintlist').addClass('active');
+            }
+            else if (criteriavalue == "rejected") {
+                $('#mediationrejectedcomplaintlist').addClass('active');
+            }
+            else {
+                $('#mediationallcomplaintlist').addClass('active');
+            }
+        }
+
+        else {
+            $('#caseusersidebar').css({ background: '#27a9e3' });
+            $('#caseusersidebar').addClass('active');
+            $('#ulinsidecaseusersidebar').addClass('in');
+
+            if (value == "sdf") {
+                $('#complaintlistcaseuser').addClass('active');
+            }
+            else if (value == "appeal") {
+                $('#appealcomplaintlistcaseuser').addClass('active');
+            }
+
+            else {
+                $('#complaintagainstcaseuser').addClass('active');
+            }
+
+
+        }
+        setTimeout(makeProressSetting, 100);
+
+        function makeProressSetting() {
+            //alert(77);
+            // parent li
+            //child a
+            // nothing merans div
+
+            var lstSteps = $("[hashistory=true]");
+            var lstStepsLength = $(lstSteps).length;
+            if (lstStepsLength > 0) {
+                var controlChild = $("[hashistory=true]")[lstStepsLength - 1];
+                var controlId = $(controlChild).attr('id');
+                var maxId = controlId.split('_')[1];
+                if (maxId > 1) {
+                    for (counter = 1; counter < maxId; counter++) {
+                        $("#stepParent_" + (counter)).addClass('visited');
+                        $("#stepChild_" + (counter)).attr('aria-selected', 'false');
+                        $("#step_" + (counter)).removeClass('active');
+                    }
+                }
+
+                $("#stepParent_" + maxId).addClass('currently-selected');
+                $("#stepChild_" + maxId).addClass('active show');
+                $("#stepChild_" + maxId).attr('aria-selected', 'true');
+                $("#stepParent_" + maxId).addClass('active');
+                $("#step_" + maxId).addClass('active');
+                $("#step_" + maxId).addClass('show');
+            }
+        }
+    });
+</script>
+
+
+
+
+

@@ -1,0 +1,483 @@
+﻿@using TravelDataRecorder.Common.TravelDataEnum
+@model TravelDataRecorder.Model.ViewModel.FilterViewModel
+@{
+    ViewBag.Title = "Report";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="page-header">
+        <h3 class="page-title">
+            Report
+        </h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+
+                @if (ViewBag.Role == (int)UserRoleEnum.ProjectManager)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home", "dashboard", new { controller = "dashboard" }) / Report</li>
+                }
+                else if (ViewBag.Role == (int)UserRoleEnum.User)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home", "dashboard", new { controller = "dashboard" }) / Report</li>
+                }
+                else if (ViewBag.Role == (int)UserRoleEnum.Client1 || ViewBag.Role == (int)UserRoleEnum.Client2)
+                {
+                    <li class="breadcrumb-item">@Html.ActionLink("Home", "dashboard", new { controller = "dashboard" }) / Report</li>
+                }
+            </ol>
+        </nav>
+    </div>
+
+    <form class="forms-sample">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="form-group col-md-12 mb-0">
+                        <div class="form-group row mb-0">
+                            <label class="col-sm-2 col-form-label">Travel Request</label>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    @Html.RadioButtonFor(x => x.TravelDetailStatus, 0, new { @id = "optAccept", @checked = "", @class = "form-check-input" })
+                                    All
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <label class="form-check-label">
+                                    @Html.RadioButtonFor(x => x.TravelDetailStatus, (int)TravelRequestStatusEnum.SubmittedByUser, new { @id = "optAccept", @class = "form-check-input" })
+                                    Submitted
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <label class="form-check-label">
+                                    @Html.RadioButtonFor(x => x.TravelDetailStatus, (int)TravelRequestStatusEnum.Resubmitted, new { @id = "optAccept", @class = "form-check-input" })
+                                    Re-Submitted
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <label class="form-check-label">
+                                    @Html.RadioButtonFor(x => x.TravelDetailStatus, (int)TravelRequestStatusEnum.ApprovedByClient2, new { @id = "optAccept", @class = "form-check-input" })
+                                    Approved
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <label class="form-check-label">
+                                    @Html.RadioButtonFor(x => x.TravelDetailStatus, (int)TravelRequestStatusEnum.InProcess, new { @id = "optAccept", @class = "form-check-input" })
+                                    In Progress
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <label class="form-check-label">
+                                    @Html.RadioButtonFor(x => x.TravelDetailStatus, (int)TravelRequestStatusEnum.Rejected, new { @id = "optAccept", @class = "form-check-input" })
+                                    Rejected
+                                    <i class="input-helper"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(x => x.FromDate)
+                        @Html.TextBoxFor(x => x.FromDate, "{0:MMM d, yyyy}", new { @class = "form-control filterCal", @placeholder = "Start Date(dd/mm/yy)" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(x => x.ToDate)
+                        @Html.TextBoxFor(x => x.ToDate, "{0:MMM d, yyyy}", new { @class = "form-control filterCal", @placeholder = "Start Date(dd/mm/yy)" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="ProjectNameCriteria">Project Name</label>
+                        @Html.DropDownListFor(x => x.ProjectNameCriteria, EnumHelper.GetSelectList(typeof(CriteriaForStringEnum)), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(x => x.ProjectName, new { @class = "form-control mt-4", @placeholder = "Project Name", @readonly = "readonly"})
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="PrimeContractorCriteria">Prime Contractor</label>
+                        @Html.DropDownListFor(x => x.PrimeContractorCriteria, EnumHelper.GetSelectList(typeof(CriteriaForStringEnum)), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(x => x.PrimeContractor, new { @class = "form-control mt-4", @placeholder = "Enter Prime Contractor", @readonly = "readonly"})
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="ContractNumberCriteria">Contract Number</label>
+                        @Html.DropDownListFor(x => x.ContractNumberCriteria, EnumHelper.GetSelectList(typeof(CriteriaForStringEnum)), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(x => x.ContractNumber, new { @class = "form-control mt-4", @placeholder = "Enter Contract Number", @readonly = "readonly"})
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="TaskOrderCriteria">Task Order</label>
+                        @Html.DropDownListFor(x => x.TaskOrderCriteria, EnumHelper.GetSelectList(typeof(CriteriaForStringEnum)), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(x => x.TaskOrder, new { @class = "form-control mt-4", @placeholder = "Enter Task Order", @readonly = "readonly"})
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="CORNameCriteria">COR Name</label>
+                        @Html.DropDownListFor(x => x.CORNameCriteria, EnumHelper.GetSelectList(typeof(CriteriaForStringEnum)), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(x => x.CORName, new { @class = "form-control mt-4", @placeholder = "Enter COR Name", @readonly = "readonly"})
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="TravellerNameCriteria">Traveller Name</label>
+                        @Html.DropDownListFor(x => x.TravellerNameCriteria, EnumHelper.GetSelectList(typeof(CriteriaForStringEnum)), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(x => x.TravellerName, new { @class = "form-control mt-4", @placeholder = "Enter Traveller Name", @readonly = "readonly"})
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="TravelerCostCriteria">Traveller Cost</label>
+                        @Html.DropDownListFor(x => x.TravelerCostCriteria, EnumHelper.GetSelectList(typeof(CriteriaForNumericEnum)), new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.TextBoxFor(x => x.TravelerCost, new { @class = "form-control mt-4", @placeholder = "Enter Traveler Cost", @readonly = "readonly"})
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(x => x.TravelStateFrom)
+                        @Html.DropDownListFor(x => x.TravelStateFrom, new SelectList(Model.TravelDetailViewModel.travelstate.ToList(), "Id", "Name"), "Select State", new { @id = "ddlFromState", @class = "select2 form-control", @onchange = "GetFromCityForReportForm()" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(x => x.TravelCityFrom)
+                        @if (Model.TravelStateFrom == (int)CriteriaForStringEnum.Select)
+                        {
+                            @Html.DropDownListFor(model => model.TravelCityFrom, new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name"), "Select City", new { @class = "select2 form-control" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.TravelCityFrom, new SelectList(Model.TravelDetailViewModel.travelCityFrom.ToList(), "Id", "Name"), "Select City", new { @class = "select2 form-control" })
+                        }
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(x => x.TravelStateTo)
+                        @Html.DropDownListFor(x => x.TravelStateTo, new SelectList(Model.TravelDetailViewModel.travelstate.ToList(), "Id", "Name"), "Select State", new { @id = "ddlToState", @class = "select2 form-control", @onchange = "GetToCityForReportForm()" })
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(x => x.TravelCityTo)
+                        @if (Model.TravelStateTo == (int)CriteriaForStringEnum.Select)
+                        {
+                            @Html.DropDownListFor(model => model.TravelCityTo, new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name"), "Select City", new { @class = "select2 form-control" })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.TravelCityTo, new SelectList(Model.TravelDetailViewModel.travelCityTo.ToList(), "Id", "Name"), "Select City", new { @class = "select2 form-control" })
+                        }
+                    </div>
+
+                    @Html.Hidden("IsExport")
+                    <div class="form-group col-md-12">
+                        <input type="submit" class="btn btn-dark mr-0 button-premier" id="btnSubmitFilter" value="View Report" />
+
+                        @Html.ActionLink("Reset All", "index", new { controller = "report" }, new { @class = "btn btn-info mr-0 ml-1 secondary-button" })
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="card m-t-20">
+            <div class="card-body">
+                <h4 class="card-title d-inline-block mt-2">Filter Data</h4>
+                <div class="align-middle float-right ml-3">
+                    @if (Model.lstTravelDetailModel != null && Model.lstTravelDetailModel.Count() > 0)
+                    {
+                        <input type="submit" class="btn btn-info title-btn" id="btnExportReport" value="Export" />
+                        //mdi mdi-export
+                    }
+                </div>
+                @if (Model.lstTravelDetailModel == null || Model.lstTravelDetailModel.Count() <= 0)
+                {
+                    <div class="alert alert-danger m-t-20" role="alert">
+                        <i class="fa fa-exclamation-triangle m-r-10"></i> No Record Found
+                    </div>
+                }
+                else
+                {
+
+                    <div class="table-v-scroll">
+                        <table id="tblreport" class="table mt-2 d-inline-block">
+                            <thead>
+                                <tr>
+                                    <td>Project Name</td>
+                                    <td>Prime Contractor</td>
+                                    <td>Contract Number</td>
+                                    <td>Task Order</td>
+                                    <td>COR Name</td>
+                                    <td>Traveller Name</td>
+                                    <td>Traveller Cost</td>
+                                    <td>From State/City</td>
+                                    <td>To State/City</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.lstTravelDetailModel)
+                        {
+                                    <tr>
+                                        <td>@item.Summary_ProjectName</td>
+                                        <td>@item.Summary_PrimeContractor</td>
+                                        <td>@item.Summary_ContractNumber</td>
+                                        <td>@item.Summary_TaskOrder</td>
+                                        <td>@item.Summary_CorName</td>
+                                        <td>@item.Summary_TravelerName</td>
+                                        <td>@item.Cost_TotalExpense</td>
+                                        <td>@item.TravelState1.Name/ @item.TravelCity.Name</td>
+                                        <td>@item.TravelState.Name/ @item.TravelCity1.Name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </form>
+}
+<div class="main-validation" style="display:none"> <p class="show-msg"></p> <i class="mdi mdi-close"></i> </div>
+
+@*@Scripts.Render("~/bundles/bootstrap")*@
+@{
+    if (ViewBag.fileName != null && ViewBag.fileName != "")
+    {
+        <script>
+            var url = window.location.origin + "/ReportData/Excel/@ViewBag.fileName";
+            if (window.location.origin.includes('localhost')) {
+                url = window.location.origin + "/traveldatarecorder/ReportData/Excel/@ViewBag.fileName";
+            }
+            window.open(url, '_blank', '');
+        </script>
+    }
+
+}
+
+<script>
+    $(function () {
+        $("#btnExportReport").on('click', function () {
+            $("#IsExport").val("True");
+        });
+        $("#btnSubmitFilter").on('click', function () {
+            $("#IsExport").val("False");
+        });
+    });
+
+
+    function GetFromCityForReportForm() {
+        var FromstateId = $('#ddlFromState').val();
+        if (FromstateId != "") {
+            $.ajax({
+                url: '@Url.Action("GetCity","Travel")',
+                type: "POST",
+                dataType: "JSON",
+                data: { stateId: FromstateId },
+                success: function (cities) {
+                    $("#TravelCityFrom").html("");
+                    $("#TravelCityFrom").append(
+                            $('<option></option>').val("0").html("Select City"));
+                    $.each(cities, function (i, city) {
+
+                        $("#TravelCityFrom").append(
+                            $('<option></option>').val(city.Id).html(city.Name));
+                    });
+                }
+            });
+        }
+        else {
+            $("#TravelCityFrom").html("");
+            $("#TravelCityFrom").append(
+                    $('<option></option>').val("0").html("Select City"));
+        }
+    }
+    function GetToCityForReportForm() {
+        var TostateId = $('#ddlToState').val();
+        if (TostateId != "") {
+            $.ajax({
+                url: '@Url.Action("GetCity","Travel")',
+                type: "POST",
+                dataType: "JSON",
+                data: { stateId: TostateId },
+                success: function (Tocities) {
+                    $("#TravelCityTo").html("");
+                    $("#TravelCityTo").append(
+                           $('<option></option>').val("0").html("Select City"));
+                    $.each(Tocities, function (i, city) {
+                        $("#TravelCityTo").append(
+                            $('<option></option>').val(city.Id).html(city.Name));
+                    });
+                }
+            });
+        }
+        else {
+            $("#TravelCityTo").html("");
+            $("#TravelCityTo").append(
+                    $('<option></option>').val("0").html("Select City"));
+        }
+    }
+
+
+    $("#btnSubmitFilter").on('click', function () {
+        //$("#IsExport").val("False");
+
+        if ($("#ProjectNameCriteria").val() != 0 && $("#ProjectName").val() == "") {
+            showErrorMessage('Project Name is required', 4000, 'warningMessage');
+            return false;
+        }
+        else if ($("#PrimeContractorCriteria").val() != 0 && $("#PrimeContractor").val() == "") {
+            showErrorMessage('Prime Contractor is required', 4000, 'warningMessage');
+            return false;
+        }
+        else if ($("#ContractNumberCriteria").val() != 0 && $("#ContractNumber").val() == "") {
+            showErrorMessage('Contract Number is required', 4000, 'warningMessage');
+            return false;
+        }
+        else if ($("#TaskOrderCriteria").val() != 0 && $("#TaskOrder").val() == "") {
+            showErrorMessage('Task Order is required', 4000, 'warningMessage');
+            return false;
+        }
+        else if ($("#CORNameCriteria").val() != 0 && $("#CORName").val() == "") {
+            showErrorMessage('COR Name is required', 4000, 'warningMessage');
+            return false;
+        }
+        else if ($("#TravellerNameCriteria").val() != 0 && $("#TravellerName").val() == "") {
+            showErrorMessage('Traveller Name is required', 4000, 'warningMessage');
+            return false;
+        }
+        else if ($("#TravelerCostCriteria").val() != 0 && $("#TravelerCost").val() == "") {
+            showErrorMessage('Traveller Cost is required', 4000, 'warningMessage');
+            return false;
+        }
+        //else if ($("#FromState").val() == "mm/dd/yyyy" && $("#ToState").val() == "mm/dd/yyyy" && $("#ddlFromState").val() == 0 && $("#ddlToState").val() == 0) {
+        //    showErrorMessage('No filters selected', 4000, 'warningMessage');
+        //    return false;
+        //}
+    });
+    $(document).ready(function () {
+        $('#tblreport').DataTable(
+            {
+                "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                "pagingType": "full_numbers",
+                "oLanguage": {
+                    "sLengthMenu": "Page Size: _MENU_ ",
+                }
+
+            });
+        $("#tblreport_filter").hide();
+        $("#tblreport_length").addClass("m-t-20");
+        $(".table-v-scroll").addClass("table-responsive");
+        $("#tblreport_length").find("select").addClass("form-control form-control-sm");
+        $("#tblreport_info").hide();
+
+
+        $(".table-responsive .bottom").insertAfter(".table-responsive");
+        //var page = 0;
+
+        //var table = $('#tblreport').DataTable();
+
+        //table.on('order', function () {
+        //    if (table.page() !== page) {
+        //        table.page(page).draw('page');
+        //    }
+        //});
+
+        //table.on('page', function () {
+        //    page = table.page();
+        //});
+
+
+        $("#ProjectNameCriteria").on('change', function () {
+
+            if ($("#ProjectNameCriteria").val() == "0") {
+                DisableTextBoxes("ProjectName");
+            }
+            else {
+                EnableTextBoxes("ProjectName");
+            }
+        });
+        $("#PrimeContractorCriteria").on('change', function () {
+
+            if ($("#PrimeContractorCriteria").val() == "0") {
+                DisableTextBoxes("PrimeContractor");
+            }
+            else {
+                EnableTextBoxes("PrimeContractor");
+            }
+        });
+        $("#ContractNumberCriteria").on('change', function () {
+
+            if ($("#ContractNumberCriteria").val() == "0") {
+                DisableTextBoxes("ContractNumber");
+            }
+            else {
+                EnableTextBoxes("ContractNumber");
+            }
+        });
+        $("#TaskOrderCriteria").on('change', function () {
+
+            if ($("#TaskOrderCriteria").val() == "0") {
+                DisableTextBoxes("TaskOrder");
+            }
+            else {
+                EnableTextBoxes("TaskOrder");
+            }
+        });
+        $("#CORNameCriteria").on('change', function () {
+
+            if ($("#CORNameCriteria").val() == "0") {
+                DisableTextBoxes("CORName");
+            }
+            else {
+                EnableTextBoxes("CORName");
+            }
+        });
+        $("#TravellerNameCriteria").on('change', function () {
+
+            if ($("#TravellerNameCriteria").val() == "0") {
+                DisableTextBoxes("TravellerName");
+            }
+            else {
+                EnableTextBoxes("TravellerName");
+            }
+        });
+        $("#TravelerCostCriteria").on('change', function () {
+
+            if ($("#TravelerCostCriteria").val() == "0") {
+                DisableTextBoxes("TravelerCost");
+            }
+            else {
+                EnableTextBoxes("TravelerCost");
+            }
+        });
+
+
+        function EnableTextBoxes(elmntID) {
+            $('#' + elmntID).removeAttr("readonly");
+        }
+        function DisableTextBoxes(elmntID) {
+            $('#' + elmntID).attr("readonly", "readonly");
+        }
+
+    });
+
+
+</script>

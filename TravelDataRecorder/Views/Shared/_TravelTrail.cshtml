@@ -1,0 +1,109 @@
+﻿@model TravelDataRecorder.Model.TravelDetailTrailModel
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">View Case</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            @Html.Hidden("src")
+                            @Html.Hidden("criteria")
+                            @if (Context.Request.QueryString["src"] != null && Context.Request.QueryString["src"] == "ProjectManger")
+                            {
+                                <a href="@Url.Action("Notificationlist", "ProjectManager")">Cases</a>
+                            }
+                          
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">View Case</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <section class="design-process-section" id="process-tab">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <!-- design process steps-->
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
+                        @{
+                            int stepCount = 0;
+                            int displayOrder = 0;
+                            string activeClass = "active";
+                            string historyAvailable = "true";
+                        }
+                        @*@foreach (var item in Model)
+                        
+                            stepCount++;
+                            if (item.ComplaintHistory.Count == 0)
+                            {
+                                activeClass = "";
+                                historyAvailable = "false";
+                            }
+                            else
+                            {
+                                historyAvailable = "true";
+                            }*@
+
+                            displayOrder++;
+                            <li id="stepParent_@stepCount" role="presentation" class="@activeClass">
+                                <a id="stepChild_@stepCount" href="#step_@stepCount" hashistory="@historyAvailable" aria-controls="step_@stepCount" role="tab" data-toggle="tab">
+                                    <i>@displayOrder</i>
+                                    @*<p>@item.Complaintsteps.StepDisplayName</p>*@
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <!-- end design process steps-->
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        @{
+                            stepCount = 0;
+                            activeClass = "active";
+                        }
+                        @*@foreach (var item in Model.)
+                        {
+                            stepCount++;
+                            if (item.ComplaintHistory.Count == 0)
+                            {
+                                activeClass = "";
+                            }
+                            else
+                            {
+                                <div role="tabpanel" class="tab-pane @activeClass" id="step_@stepCount">
+                                    <div class="design-process-content intake-tab">
+                                        <h3 class="semi-bold">@item.Complaintsteps.StepDisplayName</h3>
+                                        @foreach (var histrory in item.ComplaintHistory)
+                                        {
+
+                                            <div class="separator-line">@histrory.ComplaintNote  <i class="date black-txt">@histrory.CreatedOn</i></div>
+                                            <div class="row-history">
+                                                <i class="fas fa-comment-dots m-l-10"></i>@histrory.ComplaintDescription
+                                                @if (histrory.ComplaintDocument.Count > 0)
+                                                {
+                                                    <div class="doc-row">
+                                                        @foreach (var document in histrory.ComplaintDocument)
+                                                        {
+                                                            <i class="fas fa-file-alt"></i><a href="@Url.Action("DocDownload","complaint",new { id = document.Id } )" style="cursor:pointer">@document.DisplayName</a>
+                                                            @*<i class="fas fa-file-alt"></i><a href="#">@document.DisplayName</a>
+                                                        }
+                                                    </div>
+
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
